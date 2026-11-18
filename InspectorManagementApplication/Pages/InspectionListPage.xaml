@@ -1,0 +1,369 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:controls="clr-namespace:InspectorManagementApplication.Pages.Controls"
+    x:Class="InspectorManagementApplication.Pages.InspectionListPage"
+    Title="All Inspections"
+    SafeAreaEdges="All"
+    BackgroundColor="{StaticResource PageBackground}">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- Page Header -->
+        <VerticalStackLayout
+            Grid.Row="0"
+            Padding="{StaticResource PagePadding}"
+            Spacing="{StaticResource SmallSpacing}">
+
+            <Label
+                Text="All Inspections"
+                Style="{StaticResource PageTitleStyle}" />
+
+            <Label
+                Text="Manage and track your scheduled inspections."
+                FontSize="{StaticResource CaptionFontSize}"
+                TextColor="{StaticResource Gray500}" />
+
+        </VerticalStackLayout>
+
+        <!-- View Switcher -->
+        <Border
+            Grid.Row="1"
+            Margin="{StaticResource PagePadding}"
+            Padding="{StaticResource SmallPadding}"
+            BackgroundColor="{StaticResource Gray200}"
+            StrokeThickness="0"
+            StrokeShape="RoundRectangle 12">
+
+            <Grid ColumnDefinitions="*,*">
+
+                <Button
+                    x:Name="CollectionViewButton"
+                    Grid.Column="0"
+                    Text="Collection View"
+                    Clicked="OnCollectionViewClicked"
+                    BackgroundColor="{StaticResource Primary}"
+                    TextColor="{StaticResource White}"
+                    FontFamily="{StaticResource SemiBoldFont}"
+                    FontSize="{StaticResource CaptionFontSize}"
+                    CornerRadius="9" />
+
+                <Button
+                    x:Name="ListViewButton"
+                    Grid.Column="1"
+                    Text="List View"
+                    Clicked="OnListViewClicked"
+                    BackgroundColor="Transparent"
+                    TextColor="{StaticResource Gray500}"
+                    FontFamily="{StaticResource SemiBoldFont}"
+                    FontSize="{StaticResource CaptionFontSize}"
+                    CornerRadius="9" />
+
+            </Grid>
+        </Border>
+
+        <!-- CollectionView -->
+        <CollectionView
+            x:Name="InspectionsCollectionView"
+            Grid.Row="2"
+            Margin="{StaticResource PagePadding}"
+            SelectionMode="Single">
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Spacing="{StaticResource SmallSpacing}">
+
+                    <Label
+                        Text="No inspections found"
+                        FontSize="{StaticResource BodyFontSize}"
+                        FontFamily="{StaticResource SemiBoldFont}"
+                        HorizontalTextAlignment="Center" />
+
+                    <Label
+                        Text="Your inspections will appear here."
+                        FontSize="{StaticResource CaptionFontSize}"
+                        TextColor="{StaticResource Gray500}"
+                        HorizontalTextAlignment="Center" />
+
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <Border
+                        Padding="{StaticResource CardPadding}"
+                        Margin="{StaticResource InspectionItemMargin}"
+                        Stroke="{StaticResource Gray200}"
+                        StrokeThickness="1"
+                        BackgroundColor="{StaticResource White}"
+                        StrokeShape="RoundRectangle 14">
+
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup Name="CommonStates">
+
+                                <VisualState Name="Normal">
+                                    <VisualState.Setters>
+                                        <Setter
+                                            Property="BackgroundColor"
+                                            Value="{StaticResource White}" />
+                                        <Setter
+                                            Property="Stroke"
+                                            Value="{StaticResource Gray200}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                                <VisualState Name="Selected">
+                                    <VisualState.Setters>
+                                        <Setter
+                                            Property="BackgroundColor"
+                                            Value="{StaticResource SelectedItemBackground}" />
+                                        <Setter
+                                            Property="Stroke"
+                                            Value="{StaticResource Primary}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
+                        <Grid
+                            RowDefinitions="Auto,Auto,Auto"
+                            RowSpacing="{StaticResource MediumSpacing}">
+
+                            <!-- Title and Status -->
+                            <Grid
+                                Grid.Row="0"
+                                ColumnDefinitions="*,Auto"
+                                ColumnSpacing="{StaticResource SmallSpacing}">
+
+                                <Label
+                                    Grid.Column="0"
+                                    Text="{Binding Title}"
+                                    FontFamily="{StaticResource SemiBoldFont}"
+                                    FontSize="{StaticResource BodyFontSize}"
+                                    VerticalOptions="Center" />
+
+                                <controls:StatusBadge
+                                    Grid.Column="1"
+                                    Status="{Binding Status}"
+                                    VerticalOptions="Center" />
+
+                            </Grid>
+
+                            <!-- Site -->
+                            <Label
+                                Grid.Row="1"
+                                Text="{Binding Site}"
+                                FontSize="{StaticResource CaptionFontSize}"
+                                TextColor="{StaticResource Gray500}" />
+
+                            <!-- Priority and Date -->
+                            <Grid
+                                Grid.Row="2"
+                                ColumnDefinitions="Auto,*"
+                                ColumnSpacing="{StaticResource SmallSpacing}">
+
+                                <Border
+                                    Grid.Column="0"
+                                    Padding="{StaticResource SmallPadding}"
+                                    BackgroundColor="{StaticResource PriorityMedium}"
+                                    StrokeThickness="0"
+                                    StrokeShape="RoundRectangle 7"
+                                    VerticalOptions="Center">
+
+                                    <Border.Triggers>
+                                        <DataTrigger
+                                            TargetType="Border"
+                                            Binding="{Binding Priority}"
+                                            Value="High">
+                                            <Setter
+                                                Property="BackgroundColor"
+                                                Value="{StaticResource PriorityHigh}" />
+                                        </DataTrigger>
+
+                                        <DataTrigger
+                                            TargetType="Border"
+                                            Binding="{Binding Priority}"
+                                            Value="Medium">
+                                            <Setter
+                                                Property="BackgroundColor"
+                                                Value="{StaticResource PriorityMedium}" />
+                                        </DataTrigger>
+
+                                        <DataTrigger
+                                            TargetType="Border"
+                                            Binding="{Binding Priority}"
+                                            Value="Low">
+                                            <Setter
+                                                Property="BackgroundColor"
+                                                Value="{StaticResource PriorityLow}" />
+                                        </DataTrigger>
+                                    </Border.Triggers>
+
+                                    <Label
+                                        Text="{Binding Priority}"
+                                        FontSize="{StaticResource CaptionFontSize}"
+                                        FontFamily="{StaticResource SemiBoldFont}"
+                                        TextColor="{StaticResource White}" />
+
+                                </Border>
+
+                                <Label
+                                    Grid.Column="1"
+                                    Text="{Binding ScheduledDate, StringFormat='Scheduled: {0:dd MMM yyyy}'}"
+                                    FontSize="{StaticResource CaptionFontSize}"
+                                    TextColor="{StaticResource Gray500}"
+                                    HorizontalTextAlignment="End"
+                                    VerticalOptions="Center" />
+
+                            </Grid>
+
+                        </Grid>
+
+                    </Border>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <!-- ListView -->
+        <ListView
+            x:Name="InspectionsListView"
+            Grid.Row="2"
+            Margin="{StaticResource PagePadding}"
+            IsVisible="False"
+            ItemsSource="{Binding Source={x:Reference InspectionsCollectionView}, Path=ItemsSource}"
+            SelectionMode="None"
+            SeparatorVisibility="None"
+            HasUnevenRows="True"
+            BackgroundColor="Transparent">
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+
+                    <ViewCell>
+
+                        <Border
+                            Padding="{StaticResource CardPadding}"
+                            Margin="{StaticResource InspectionItemMargin}"
+                            Stroke="{StaticResource Gray200}"
+                            StrokeThickness="1"
+                            BackgroundColor="{StaticResource White}"
+                            StrokeShape="RoundRectangle 14">
+
+                            <!-- Tap Gesture for Selection Effect -->
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Tapped="OnListInspectionTapped" />
+                            </Border.GestureRecognizers>
+
+                            <Grid
+                                RowDefinitions="Auto,Auto,Auto"
+                                RowSpacing="{StaticResource MediumSpacing}">
+
+                                <!-- Title and Status -->
+                                <Grid
+                                    Grid.Row="0"
+                                    ColumnDefinitions="*,Auto"
+                                    ColumnSpacing="{StaticResource SmallSpacing}">
+
+                                    <Label
+                                        Grid.Column="0"
+                                        Text="{Binding Title}"
+                                        FontFamily="{StaticResource SemiBoldFont}"
+                                        FontSize="{StaticResource BodyFontSize}"
+                                        VerticalOptions="Center" />
+
+                                    <controls:StatusBadge
+                                        Grid.Column="1"
+                                        Status="{Binding Status}"
+                                        VerticalOptions="Center" />
+
+                                </Grid>
+
+                                <!-- Site -->
+                                <Label
+                                    Grid.Row="1"
+                                    Text="{Binding Site}"
+                                    FontSize="{StaticResource CaptionFontSize}"
+                                    TextColor="{StaticResource Gray500}" />
+
+                                <!-- Priority and Date -->
+                                <Grid
+                                    Grid.Row="2"
+                                    ColumnDefinitions="Auto,*"
+                                    ColumnSpacing="{StaticResource SmallSpacing}">
+
+                                    <Border
+                                        Grid.Column="0"
+                                        Padding="{StaticResource SmallPadding}"
+                                        BackgroundColor="{StaticResource PriorityMedium}"
+                                        StrokeThickness="0"
+                                        StrokeShape="RoundRectangle 7"
+                                        VerticalOptions="Center">
+
+                                        <Border.Triggers>
+                                            <DataTrigger
+                                                TargetType="Border"
+                                                Binding="{Binding Priority}"
+                                                Value="High">
+                                                <Setter
+                                                    Property="BackgroundColor"
+                                                    Value="{StaticResource PriorityHigh}" />
+                                            </DataTrigger>
+
+                                            <DataTrigger
+                                                TargetType="Border"
+                                                Binding="{Binding Priority}"
+                                                Value="Medium">
+                                                <Setter
+                                                    Property="BackgroundColor"
+                                                    Value="{StaticResource PriorityMedium}" />
+                                            </DataTrigger>
+
+                                            <DataTrigger
+                                                TargetType="Border"
+                                                Binding="{Binding Priority}"
+                                                Value="Low">
+                                                <Setter
+                                                    Property="BackgroundColor"
+                                                    Value="{StaticResource PriorityLow}" />
+                                            </DataTrigger>
+                                        </Border.Triggers>
+
+                                        <Label
+                                            Text="{Binding Priority}"
+                                            FontSize="{StaticResource CaptionFontSize}"
+                                            FontFamily="{StaticResource SemiBoldFont}"
+                                            TextColor="{StaticResource White}" />
+
+                                    </Border>
+
+                                    <Label
+                                        Grid.Column="1"
+                                        Text="{Binding ScheduledDate, StringFormat='Scheduled: {0:dd MMM yyyy}'}"
+                                        FontSize="{StaticResource CaptionFontSize}"
+                                        TextColor="{StaticResource Gray500}"
+                                        HorizontalTextAlignment="End"
+                                        VerticalOptions="Center" />
+
+                                </Grid>
+
+                            </Grid>
+
+                        </Border>
+
+                    </ViewCell>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+        </ListView>
+
+    </Grid>
+</ContentPage>

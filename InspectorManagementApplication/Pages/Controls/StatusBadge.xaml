@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="InspectorManagementApplication.Pages.Controls.StatusBadge">
+
+    <Border
+        x:Name="BadgeBorder"
+        Padding="{StaticResource SmallPadding}"
+        Stroke="{StaticResource White}"
+        StrokeThickness="0"
+        StrokeShape="RoundRectangle 8">
+
+        <Label
+            x:Name="StatusLabel"
+            Text="Pending"
+            TextColor="{StaticResource White}"
+            FontFamily="{StaticResource SemiBoldFont}"
+            FontSize="{StaticResource CaptionFontSize}"
+            HorizontalTextAlignment="Center" />
+
+    </Border>
+
+</ContentView>

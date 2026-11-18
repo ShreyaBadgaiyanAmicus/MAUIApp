@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="InspectorManagementApplication.Pages.InspectorProfilePage"
+    Title="My Profile"
+    SafeAreaEdges="All">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="{StaticResource PagePadding}"
+            Spacing="{StaticResource LargeSpacing}">
+
+            <!-- Profile Header Card -->
+            <Border
+                BackgroundColor="{StaticResource White}"
+                Stroke="{StaticResource Gray200}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 18"
+                Padding="{StaticResource CardPadding}">
+
+                <VerticalStackLayout
+                    Spacing="{StaticResource MediumSpacing}"
+                    HorizontalOptions="Center">
+
+                    <Image
+                        Source="inspector_profile.png"
+                        HeightRequest="110"
+                        WidthRequest="110"
+                        Aspect="AspectFill"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        Text="Alex Morgan"
+                        FontSize="{StaticResource PageTitleFontSize}"
+                        FontAttributes="Bold"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        Text="Senior Inspector"
+                        FontSize="{StaticResource BodyFontSize}"
+                        TextColor="{StaticResource Gray500}"
+                        HorizontalOptions="Center" />
+
+                    <Label
+                        Text="Employee ID: INS-1024"
+                        FontSize="{StaticResource CaptionFontSize}"
+                        TextColor="{StaticResource Primary}"
+                        HorizontalOptions="Center" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Contact Information -->
+            <Label
+                Text="Contact Information"
+                FontSize="{StaticResource SectionTitleFontSize}"
+                FontAttributes="Bold" />
+
+            <Border
+                BackgroundColor="{StaticResource White}"
+                Stroke="{StaticResource Gray200}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 18"
+                Padding="{StaticResource CardPadding}">
+
+                <VerticalStackLayout Spacing="{StaticResource MediumSpacing}">
+
+                    <Label
+                        Text="EMAIL ADDRESS"
+                        FontSize="{StaticResource CaptionFontSize}"
+                        TextColor="{StaticResource Gray500}" />
+
+                    <Label
+                        Text="alex.morgan@example.com"
+                        FontSize="{StaticResource BodyFontSize}" />
+
+                    <BoxView
+                        HeightRequest="1"
+                        Color="{StaticResource Gray200}" />
+
+                    <Label
+                        Text="PHONE NUMBER"
+                        FontSize="{StaticResource CaptionFontSize}"
+                        TextColor="{StaticResource Gray500}" />
+
+                    <Label
+                        Text="+91 98765 43210"
+                        FontSize="{StaticResource BodyFontSize}" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Profile Settings -->
+            <Label
+                Text="Profile Settings"
+                FontSize="{StaticResource SectionTitleFontSize}"
+                FontAttributes="Bold" />
+
+            <Border
+                BackgroundColor="{StaticResource White}"
+                Stroke="{StaticResource Gray200}"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 18"
+                Padding="{StaticResource CardPadding}">
+
+                <VerticalStackLayout Spacing="{StaticResource MediumSpacing}">
+
+                    <Label
+                        Text="Full Name"
+                        FontSize="{StaticResource CaptionFontSize}"
+                        TextColor="{StaticResource Gray500}" />
+
+                    <Entry
+                        Text="Alex Morgan"
+                        Placeholder="Enter your name" />
+
+                    <Label
+                        Text="Phone Number"
+                        FontSize="{StaticResource CaptionFontSize}"
+                        TextColor="{StaticResource Gray500}" />
+
+                    <Entry
+                        Text="+91 98765 43210"
+                        Placeholder="Enter phone number"
+                        Keyboard="Telephone" />
+
+                    <Label
+                        Text="Designation"
+                        FontSize="{StaticResource CaptionFontSize}"
+                        TextColor="{StaticResource Gray500}" />
+
+                    <Picker
+                        Title="Select designation"
+                        SelectedIndex="0">
+                        <Picker.Items>
+                            <x:String>Senior Inspector</x:String>
+                            <x:String>Junior Inspector</x:String>
+                            <x:String>Inspection Manager</x:String>
+                        </Picker.Items>
+                    </Picker>
+
+                    <BoxView
+                        HeightRequest="1"
+                        Color="{StaticResource Gray200}" />
+
+                    <Grid ColumnDefinitions="*,Auto">
+
+                        <VerticalStackLayout
+    Spacing="{StaticResource ExtraSmallSpacing}">
+                            <Label
+                                Text="Inspection Notifications"
+                                FontSize="{StaticResource BodyFontSize}"
+                                FontAttributes="Bold" />
+
+                            <Label
+                                Text="Receive inspection updates"
+                                FontSize="{StaticResource CaptionFontSize}"
+                                TextColor="{StaticResource Gray500}" />
+                        </VerticalStackLayout>
+
+                        <Switch
+                            Grid.Column="1"
+                            IsToggled="True"
+                            VerticalOptions="Center" />
+
+                    </Grid>
+
+                    <BoxView
+                        HeightRequest="1"
+                        Color="{StaticResource Gray200}" />
+
+                    <Label
+                        Text="Date of Joining"
+                        FontSize="{StaticResource CaptionFontSize}"
+                        TextColor="{StaticResource Gray500}" />
+
+                    <DatePicker
+                        Date="2020-06-15"
+                        Format="dd MMM yyyy" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Edit Button -->
+            <Button
+                Text="Edit Profile"
+                FontSize="{StaticResource ButtonFontSize}"
+                Style="{StaticResource PrimaryButtonStyle}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
