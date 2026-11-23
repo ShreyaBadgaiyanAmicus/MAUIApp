@@ -1,4 +1,4 @@
-namespace InspectorManagementApplication.Pages;
+namespace InspectorManagementApplication.Views;
 
 public partial class InspectorProfilePage : ContentPage
 {

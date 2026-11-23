@@ -1,5 +1,5 @@
 
-using InspectorManagementApplication.Pages;
+using InspectorManagementApplication.Views;
 
 namespace InspectorManagementApplication
 {

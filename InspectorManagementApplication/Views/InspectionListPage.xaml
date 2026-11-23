@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
+    x:Name="InspectionPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:InspectorManagementApplication.Pages.Controls"
-    x:Class="InspectorManagementApplication.Pages.InspectionListPage"
+    xmlns:controls="clr-namespace:InspectorManagementApplication.Views.Controls"
+    x:Class="InspectorManagementApplication.Views.InspectionListPage"
     Title="All Inspections"
     SafeAreaEdges="All"
     BackgroundColor="{StaticResource PageBackground}">
@@ -39,26 +40,68 @@
             <Grid ColumnDefinitions="*,*">
 
                 <Button
-                    x:Name="CollectionViewButton"
                     Grid.Column="0"
                     Text="Collection View"
-                    Clicked="OnCollectionViewClicked"
-                    BackgroundColor="{StaticResource Primary}"
-                    TextColor="{StaticResource White}"
+                    Command="{Binding ShowCollectionViewCommand}"
                     FontFamily="{StaticResource SemiBoldFont}"
                     FontSize="{StaticResource CaptionFontSize}"
-                    CornerRadius="9" />
+                    CornerRadius="9">
+
+                    <Button.Triggers>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding IsCollectionViewVisible}"
+                            Value="True">
+                            <Setter Property="BackgroundColor"
+                                    Value="{StaticResource Primary}" />
+                            <Setter Property="TextColor"
+                                    Value="{StaticResource White}" />
+                        </DataTrigger>
+
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding IsCollectionViewVisible}"
+                            Value="False">
+                            <Setter Property="BackgroundColor"
+                                    Value="Transparent" />
+                            <Setter Property="TextColor"
+                                    Value="{StaticResource Gray500}" />
+                        </DataTrigger>
+                    </Button.Triggers>
+
+                </Button>
 
                 <Button
-                    x:Name="ListViewButton"
                     Grid.Column="1"
                     Text="List View"
-                    Clicked="OnListViewClicked"
-                    BackgroundColor="Transparent"
-                    TextColor="{StaticResource Gray500}"
+                    Command="{Binding ShowListViewCommand}"
                     FontFamily="{StaticResource SemiBoldFont}"
                     FontSize="{StaticResource CaptionFontSize}"
-                    CornerRadius="9" />
+                    CornerRadius="9">
+
+                    <Button.Triggers>
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding IsListViewVisible}"
+                            Value="True">
+                            <Setter Property="BackgroundColor"
+                                    Value="{StaticResource Primary}" />
+                            <Setter Property="TextColor"
+                                    Value="{StaticResource White}" />
+                        </DataTrigger>
+
+                        <DataTrigger
+                            TargetType="Button"
+                            Binding="{Binding IsListViewVisible}"
+                            Value="False">
+                            <Setter Property="BackgroundColor"
+                                    Value="Transparent" />
+                            <Setter Property="TextColor"
+                                    Value="{StaticResource Gray500}" />
+                        </DataTrigger>
+                    </Button.Triggers>
+
+                </Button>
 
             </Grid>
         </Border>
@@ -68,6 +111,9 @@
             x:Name="InspectionsCollectionView"
             Grid.Row="2"
             Margin="{StaticResource PagePadding}"
+            ItemsSource="{Binding Inspections}"
+            IsVisible="{Binding IsCollectionViewVisible}"
+            SelectedItem="{Binding SelectedInspection, Mode=TwoWay}"
             SelectionMode="Single">
 
             <CollectionView.EmptyView>
@@ -107,23 +153,19 @@
 
                                 <VisualState Name="Normal">
                                     <VisualState.Setters>
-                                        <Setter
-                                            Property="BackgroundColor"
-                                            Value="{StaticResource White}" />
-                                        <Setter
-                                            Property="Stroke"
-                                            Value="{StaticResource Gray200}" />
+                                        <Setter Property="BackgroundColor"
+                                                Value="{StaticResource White}" />
+                                        <Setter Property="Stroke"
+                                                Value="{StaticResource Gray200}" />
                                     </VisualState.Setters>
                                 </VisualState>
 
                                 <VisualState Name="Selected">
                                     <VisualState.Setters>
-                                        <Setter
-                                            Property="BackgroundColor"
-                                            Value="{StaticResource SelectedItemBackground}" />
-                                        <Setter
-                                            Property="Stroke"
-                                            Value="{StaticResource Primary}" />
+                                        <Setter Property="BackgroundColor"
+                                                Value="{StaticResource SelectedItemBackground}" />
+                                        <Setter Property="Stroke"
+                                                Value="{StaticResource Primary}" />
                                     </VisualState.Setters>
                                 </VisualState>
 
@@ -157,7 +199,7 @@
                             <!-- Site -->
                             <Label
                                 Grid.Row="1"
-                                Text="{Binding Site}"
+                                Text="{Binding SiteName}"
                                 FontSize="{StaticResource CaptionFontSize}"
                                 TextColor="{StaticResource Gray500}" />
 
@@ -180,27 +222,24 @@
                                             TargetType="Border"
                                             Binding="{Binding Priority}"
                                             Value="High">
-                                            <Setter
-                                                Property="BackgroundColor"
-                                                Value="{StaticResource PriorityHigh}" />
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{StaticResource PriorityHigh}" />
                                         </DataTrigger>
 
                                         <DataTrigger
                                             TargetType="Border"
                                             Binding="{Binding Priority}"
                                             Value="Medium">
-                                            <Setter
-                                                Property="BackgroundColor"
-                                                Value="{StaticResource PriorityMedium}" />
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{StaticResource PriorityMedium}" />
                                         </DataTrigger>
 
                                         <DataTrigger
                                             TargetType="Border"
                                             Binding="{Binding Priority}"
                                             Value="Low">
-                                            <Setter
-                                                Property="BackgroundColor"
-                                                Value="{StaticResource PriorityLow}" />
+                                            <Setter Property="BackgroundColor"
+                                                    Value="{StaticResource PriorityLow}" />
                                         </DataTrigger>
                                     </Border.Triggers>
 
@@ -214,7 +253,7 @@
 
                                 <Label
                                     Grid.Column="1"
-                                    Text="{Binding ScheduledDate, StringFormat='Scheduled: {0:dd MMM yyyy}'}"
+                                    Text="{Binding ScheduledOn, StringFormat='Scheduled: {0:dd MMM yyyy}'}"
                                     FontSize="{StaticResource CaptionFontSize}"
                                     TextColor="{StaticResource Gray500}"
                                     HorizontalTextAlignment="End"
@@ -236,8 +275,8 @@
             x:Name="InspectionsListView"
             Grid.Row="2"
             Margin="{StaticResource PagePadding}"
-            IsVisible="False"
-            ItemsSource="{Binding Source={x:Reference InspectionsCollectionView}, Path=ItemsSource}"
+            IsVisible="{Binding IsListViewVisible}"
+            ItemsSource="{Binding Inspections}"
             SelectionMode="None"
             SeparatorVisibility="None"
             HasUnevenRows="True"
@@ -256,10 +295,11 @@
                             BackgroundColor="{StaticResource White}"
                             StrokeShape="RoundRectangle 14">
 
-                            <!-- Tap Gesture for Selection Effect -->
                             <Border.GestureRecognizers>
                                 <TapGestureRecognizer
-                                    Tapped="OnListInspectionTapped" />
+                                    Command="{Binding Source={x:Reference InspectionPage},
+                                        Path=BindingContext.SelectInspectionCommand}"
+                                    CommandParameter="{Binding .}" />
                             </Border.GestureRecognizers>
 
                             <Grid
@@ -289,7 +329,7 @@
                                 <!-- Site -->
                                 <Label
                                     Grid.Row="1"
-                                    Text="{Binding Site}"
+                                    Text="{Binding SiteName}"
                                     FontSize="{StaticResource CaptionFontSize}"
                                     TextColor="{StaticResource Gray500}" />
 
@@ -312,8 +352,7 @@
                                                 TargetType="Border"
                                                 Binding="{Binding Priority}"
                                                 Value="High">
-                                                <Setter
-                                                    Property="BackgroundColor"
+                                                <Setter Property="BackgroundColor"
                                                     Value="{StaticResource PriorityHigh}" />
                                             </DataTrigger>
 
@@ -321,18 +360,16 @@
                                                 TargetType="Border"
                                                 Binding="{Binding Priority}"
                                                 Value="Medium">
-                                                <Setter
-                                                    Property="BackgroundColor"
-                                                    Value="{StaticResource PriorityMedium}" />
+                                                <Setter Property="BackgroundColor"
+                                                        Value="{StaticResource PriorityMedium}" />
                                             </DataTrigger>
 
                                             <DataTrigger
                                                 TargetType="Border"
                                                 Binding="{Binding Priority}"
                                                 Value="Low">
-                                                <Setter
-                                                    Property="BackgroundColor"
-                                                    Value="{StaticResource PriorityLow}" />
+                                                <Setter Property="BackgroundColor"
+                                                        Value="{StaticResource PriorityLow}" />
                                             </DataTrigger>
                                         </Border.Triggers>
 
@@ -346,7 +383,7 @@
 
                                     <Label
                                         Grid.Column="1"
-                                        Text="{Binding ScheduledDate, StringFormat='Scheduled: {0:dd MMM yyyy}'}"
+                                        Text="{Binding ScheduledOn, StringFormat='Scheduled: {0:dd MMM yyyy}'}"
                                         FontSize="{StaticResource CaptionFontSize}"
                                         TextColor="{StaticResource Gray500}"
                                         HorizontalTextAlignment="End"
@@ -364,6 +401,16 @@
             </ListView.ItemTemplate>
 
         </ListView>
+
+        <!-- Loading Indicator -->
+        <ActivityIndicator
+            Grid.Row="2"
+            IsRunning="{Binding IsBusy}"
+            IsVisible="{Binding IsBusy}"
+            Color="{StaticResource Primary}"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            ZIndex="1" />
 
     </Grid>
 </ContentPage>

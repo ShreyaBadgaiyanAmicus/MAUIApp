@@ -314,3 +314,99 @@ Achieved consistent styling and typography across the Dashboard, Profile, and In
 ## 11. Write REFACTOR.md: list at least 3 places where you removed duplicated XAML or simplified a layout, with a short before and after for each.
 
 ``` REFRACTOR.md ```
+
+
+# Assignment 2
+
+## 1. Create Models, ViewModels and Views folders and an Inspection model (Id, Title, SiteName, Status, Priority, ScheduledOn, InspectorName, Notes). Write a BaseViewModel that implements INotifyPropertyChanged yourself. Do not use a toolkit or source generator in this assignment.
+
+## Task 1 – MVVM Foundation
+
+### Project Structure
+Created separate folders to organize the application:
+- **Models:** Contains the Inspection model.
+- **Views:** Contains the UI pages.
+- **ViewModels:** Contains presentation logic and data-binding properties.
+
+### Inspection Model
+Created an `Inspection` model with the following properties:
+- Id
+- Title
+- SiteName
+- Status
+- Priority
+- ScheduledOn
+- InspectorName
+- Notes
+
+### BaseViewModel
+Implemented a custom `BaseViewModel` class that implements `INotifyPropertyChanged` without using MVVM Toolkit or source generators.
+
+It includes:
+- `PropertyChanged` event to notify the UI about property changes.
+- `OnPropertyChanged()` method to raise notifications.
+- `SetProperty()` helper method to update backing fields and notify the UI only when values change.
+
+This provides a reusable foundation for the application's ViewModels.
+
+
+## 2. Create InspectionListViewModel with an ObservableCollection of inspections and bind InspectionListPage to it. The code-behind may contain only InitializeComponent and the BindingContext assignment. Experiment: replace the ObservableCollection with a plain List and add an item at runtime. Document what happens and why.
+
+## Task 2 – InspectionListViewModel and Data Binding
+
+### ViewModel Implementation
+Created `InspectionListViewModel`, inheriting from `BaseViewModel`.
+
+- Used `ObservableCollection<Inspection>` to store inspection records.
+- Moved all 10 sample inspection records from `InspectionListPage` into the ViewModel.
+- Added inspection properties such as `Id`, `Title`, `SiteName`, `Status`, `Priority`, and `ScheduledOn`.
+
+### Binding InspectionListPage
+- Set the page's `BindingContext` to an instance of `InspectionListViewModel`.
+- Bound both `CollectionView` and `ListView` to the `Inspections` collection using `ItemsSource="{Binding Inspections}"`.
+- Updated XAML bindings to match the renamed model properties `SiteName` and `ScheduledOn`.
+- Removed hardcoded inspection data and `ItemsSource` assignments from the page constructor.
+
+### ObservableCollection vs List Experiment
+
+| ObservableCollection | List |
+|---|---|
+| Notifies the UI when items are added or removed. | Does not notify the UI when items are added or removed. |
+| Automatically updates a bound collection control when the collection changes. | The UI does not automatically reflect collection changes. |
+
+**Observation:** Both collections display the initial inspection records correctly because the data is available when the page is bound.
+
+However, when a new inspection is added at runtime, `ObservableCollection` automatically notifies the UI and displays the new item. A plain `List` does not provide collection-change notifications, so the UI does not automatically update.
+
+**Conclusion:** `ObservableCollection` is preferred for data-bound collections when items may be added or removed dynamically.
+
+## 3. Add an IsBusy property. Load the list with a simulated 2-second delay and show an ActivityIndicator while loading. In the README, describe which responsibilities sit in the Model, the View and the ViewModel in your app.
+
+## Task 3 – Loading State and MVVM Responsibilities
+
+### IsBusy and Asynchronous Loading
+- Added an `IsBusy` property to `InspectionListViewModel` to track the loading state.
+- Implemented `LoadInspectionsAsync()` to simulate data loading using `Task.Delay(2000)`.
+- Set `IsBusy` to `true` before loading and reset it to `false` in a `finally` block.
+- Populated the `ObservableCollection<Inspection>` after the simulated delay.
+- Added an `ActivityIndicator` to `InspectionListPage.xaml`.
+- Bound the indicator's `IsRunning` and `IsVisible` properties to `IsBusy`, so it appears while loading and disappears afterward.
+
+### MVVM Responsibilities
+
+| Component | Responsibility in the application |
+|---|---|
+| **Model** | The `Inspection` class represents inspection data, including Id, Title, SiteName, Status, Priority, ScheduledOn, InspectorName and Notes. |
+| **View** | `InspectionListPage.xaml` defines the user interface, including the inspection list, view switcher, labels, buttons and ActivityIndicator. |
+| **ViewModel** | `InspectionListViewModel` manages the inspection collection, loading logic and `IsBusy` state. It exposes properties that the View accesses through data binding. |
+
+### Conclusion
+MVVM separates the application into three responsibilities:
+- **Model:** Represents the data.
+- **View:** Displays the user interface.
+- **ViewModel:** Handles presentation logic and connects the Model with the View through data binding.
+
+This separation makes the application easier to maintain, test and extend.
+
+
+## 4. Add a search Entry bound TwoWay to a SearchText property. The list must filter as the user types, with no search button. In the README, list at least six bindings in your app in a table (control, property, mode, direction) and explain why you chose OneWay or TwoWay for each.

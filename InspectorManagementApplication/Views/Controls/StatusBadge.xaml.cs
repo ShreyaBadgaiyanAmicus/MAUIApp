@@ -1,5 +1,5 @@
 
-namespace InspectorManagementApplication.Pages.Controls;
+namespace InspectorManagementApplication.Views.Controls;
 
 public partial class StatusBadge : ContentView
 {

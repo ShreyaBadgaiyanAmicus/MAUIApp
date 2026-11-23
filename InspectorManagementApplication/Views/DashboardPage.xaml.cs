@@ -1,7 +1,7 @@
 
-using InspectorManagementApplication.Pages;
+using InspectorManagementApplication.Views;
 
-namespace InspectorManagementApplication.Pages;
+namespace InspectorManagementApplication.Views;
 
 public partial class DashboardPage : ContentPage
 {

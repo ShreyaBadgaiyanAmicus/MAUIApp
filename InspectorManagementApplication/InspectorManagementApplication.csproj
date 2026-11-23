@@ -65,16 +65,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiXaml Update="Pages\Controls\StatusBadge.xaml">
+	  <MauiXaml Update="Views\Controls\StatusBadge.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\DashboardPage.xaml">
+	  <MauiXaml Update="Views\DashboardPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\InspectionListPage.xaml">
+	  <MauiXaml Update="Views\InspectionListPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="Pages\InspectorProfilePage.xaml">
+	  <MauiXaml Update="Views\InspectorProfilePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Resources\Styles\FontSizes.xaml">
@@ -83,6 +83,11 @@
 	  <MauiXaml Update="Resources\Styles\Spacing.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Commands\" />
+	  <Folder Include="Converters\" />
 	</ItemGroup>
 
 </Project>
