@@ -83,11 +83,13 @@
 	  <MauiXaml Update="Resources\Styles\Spacing.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	  <MauiXaml Update="Views\LoginPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	</ItemGroup>
 
 	<ItemGroup>
 	  <Folder Include="Commands\" />
-	  <Folder Include="Converters\" />
 	</ItemGroup>
 
 </Project>

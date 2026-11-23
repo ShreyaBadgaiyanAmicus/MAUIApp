@@ -410,3 +410,90 @@ This separation makes the application easier to maintain, test and extend.
 
 
 ## 4. Add a search Entry bound TwoWay to a SearchText property. The list must filter as the user types, with no search button. In the README, list at least six bindings in your app in a table (control, property, mode, direction) and explain why you chose OneWay or TwoWay for each.
+
+## Task 4 – Two-Way Data Binding and Live Search
+
+### Search Implementation
+- Added a Search Entry to `InspectionListPage.xaml`.
+- Bound its `Text` property to the ViewModel's `SearchText` property using `Mode=TwoWay`.
+- Implemented filtering inside `InspectionListViewModel`.
+- Used a separate `_allInspections` list to preserve the complete dataset.
+- Used `ObservableCollection<Inspection>` for displaying filtered results.
+- Filtering happens automatically whenever the user types, without requiring a search button.
+- Search is case-insensitive and checks Title, SiteName, Status, Priority and InspectorName.
+
+### Data Binding Table
+
+| Control | Property | Mode | Direction |
+|---|---|---|---|
+| Search Entry | Text | TwoWay | View ↔ ViewModel |
+| CollectionView | ItemsSource | OneWay | ViewModel → View |
+| CollectionView | SelectedItem | TwoWay | View ↔ ViewModel |
+| CollectionView | IsVisible | OneWay | ViewModel → View |
+| ListView | ItemsSource | OneWay | ViewModel → View |
+| ListView | IsVisible | OneWay | ViewModel → View |
+| ActivityIndicator | IsRunning | OneWay | ViewModel → View |
+| ActivityIndicator | IsVisible | OneWay | ViewModel → View |
+| Collection View Button | Command | OneWay | ViewModel → View |
+| List View Button | Command | OneWay | ViewModel → View |
+
+### OneWay vs TwoWay Binding
+
+**OneWay:** Data flows from the ViewModel to the View. It is suitable for displaying information or state that the user does not directly edit.
+
+Examples: `ItemsSource`, `IsVisible`, and `IsRunning`.
+
+**TwoWay:** Data flows in both directions. When the user changes a control, the ViewModel property updates, and changes to the ViewModel can also update the control.
+
+Examples: Search Entry `Text` and CollectionView `SelectedItem`.
+
+### Conclusion
+Two-way binding allows the search input to update `SearchText` immediately. The ViewModel filters the inspection collection whenever the text changes, providing live search without a separate search button.
+
+
+## 5. Write three value converters: StatusToColorConverter, a date-to-relative-text converter (such as '3 days ago', no libraries), and an inverse-boolean converter used to show an empty-state message when the search finds nothing.
+
+## Task 5 – Value Converters
+
+Implemented three custom value converters in the `Converters` folder and registered them in `App.xaml` as application-level resources.
+
+1. **StatusToColorConverter:** Converts inspection status into a corresponding color: Pending (Orange), In Progress (Blue), and Completed (Green).
+2. **DateToRelativeTextConverter:** Converts `DateTime` values into relative text such as Today, Tomorrow, Yesterday, and 3 days ago using built-in .NET functionality.
+3. **InverseBooleanConverter:** Reverses boolean values. Used with `HasInspections` to display the empty-state message when the filtered collection has no records.
+
+Converters separate presentation logic from the ViewModel and allow reusable value transformations in XAML.
+
+
+
+## 6. Create LoginPage with Email and Password entries. Validate the email format and a password of at least 8 characters. Show the error message under each field, and keep the Login button disabled until both are valid. Check the credentials against a hardcoded user for now.
+
+
+
+## Task 6: Login Page with Validation
+
+Created a `LoginPage` using MVVM with email and password validation.
+
+### Features
+- Email validation using Regex to check the email format.
+- Password validation requiring at least 8 characters.
+- Error messages displayed below their respective fields.
+- Login button remains disabled until both fields are valid.
+- Hardcoded credential verification for testing.
+
+### Test Credentials
+- **Email:** admin@example.com
+- **Password:** Admin@123
+
+### Login Results
+- Successful login displays a green success message.
+- Incorrect credentials display a red error message.
+- Editing either field clears the previous login result.
+
+### MVVM Implementation
+- `LoginViewModel` handles validation and credential checking.
+- `LoginPage.xaml` contains the UI and data bindings.
+- `LoginPage.xaml.cs` initializes the ViewModel and handles the Login button click.
+- `App.xaml.cs` opens LoginPage as the temporary startup page.
+
+
+## 7. Write your own RelayCommand with CanExecute and an AsyncRelayCommand. Use them for Login and for loading the list, so that a second tap while one is running does nothing. Document what happens if the user taps Login twice very quickly, with and without your protection.

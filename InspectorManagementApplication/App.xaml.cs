@@ -1,5 +1,6 @@
 ﻿
 using System.Diagnostics;
+using InspectorManagementApplication.Views;
 
 namespace InspectorManagementApplication
 {
@@ -12,7 +13,7 @@ namespace InspectorManagementApplication
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            Window window = new Window(new AppShell());
+            Window window = new Window(new LoginPage());
 
             // Application lifecycle events
             window.Created += (sender, args) =>

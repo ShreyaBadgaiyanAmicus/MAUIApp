@@ -9,7 +9,7 @@
     SafeAreaEdges="All"
     BackgroundColor="{StaticResource PageBackground}">
 
-    <Grid RowDefinitions="Auto,Auto,*">
+    <Grid RowDefinitions="Auto,Auto,Auto,*">
 
         <!-- Page Header -->
         <VerticalStackLayout
@@ -28,9 +28,18 @@
 
         </VerticalStackLayout>
 
+        <!-- Search -->
+        <Entry
+            Grid.Row="1"
+            Margin="{StaticResource PagePadding}"
+            Placeholder="Search inspections..."
+            Text="{Binding SearchText, Mode=TwoWay}"
+            ClearButtonVisibility="WhileEditing"
+            BackgroundColor="{StaticResource White}" />
+
         <!-- View Switcher -->
         <Border
-            Grid.Row="1"
+            Grid.Row="2"
             Margin="{StaticResource PagePadding}"
             Padding="{StaticResource SmallPadding}"
             BackgroundColor="{StaticResource Gray200}"
@@ -109,33 +118,12 @@
         <!-- CollectionView -->
         <CollectionView
             x:Name="InspectionsCollectionView"
-            Grid.Row="2"
+            Grid.Row="3"
             Margin="{StaticResource PagePadding}"
             ItemsSource="{Binding Inspections}"
             IsVisible="{Binding IsCollectionViewVisible}"
             SelectedItem="{Binding SelectedInspection, Mode=TwoWay}"
             SelectionMode="Single">
-
-            <CollectionView.EmptyView>
-                <VerticalStackLayout
-                    HorizontalOptions="Center"
-                    VerticalOptions="Center"
-                    Spacing="{StaticResource SmallSpacing}">
-
-                    <Label
-                        Text="No inspections found"
-                        FontSize="{StaticResource BodyFontSize}"
-                        FontFamily="{StaticResource SemiBoldFont}"
-                        HorizontalTextAlignment="Center" />
-
-                    <Label
-                        Text="Your inspections will appear here."
-                        FontSize="{StaticResource CaptionFontSize}"
-                        TextColor="{StaticResource Gray500}"
-                        HorizontalTextAlignment="Center" />
-
-                </VerticalStackLayout>
-            </CollectionView.EmptyView>
 
             <CollectionView.ItemTemplate>
                 <DataTemplate>
@@ -192,6 +180,7 @@
                                 <controls:StatusBadge
                                     Grid.Column="1"
                                     Status="{Binding Status}"
+                                    BackgroundColor="{Binding Status, Converter={StaticResource StatusToColorConverter}}"
                                     VerticalOptions="Center" />
 
                             </Grid>
@@ -203,7 +192,7 @@
                                 FontSize="{StaticResource CaptionFontSize}"
                                 TextColor="{StaticResource Gray500}" />
 
-                            <!-- Priority and Date -->
+                            <!-- Priority and Relative Date -->
                             <Grid
                                 Grid.Row="2"
                                 ColumnDefinitions="Auto,*"
@@ -253,7 +242,7 @@
 
                                 <Label
                                     Grid.Column="1"
-                                    Text="{Binding ScheduledOn, StringFormat='Scheduled: {0:dd MMM yyyy}'}"
+                                    Text="{Binding ScheduledOn, Converter={StaticResource DateToRelativeTextConverter}, StringFormat='Scheduled: {0}'}"
                                     FontSize="{StaticResource CaptionFontSize}"
                                     TextColor="{StaticResource Gray500}"
                                     HorizontalTextAlignment="End"
@@ -273,7 +262,7 @@
         <!-- ListView -->
         <ListView
             x:Name="InspectionsListView"
-            Grid.Row="2"
+            Grid.Row="3"
             Margin="{StaticResource PagePadding}"
             IsVisible="{Binding IsListViewVisible}"
             ItemsSource="{Binding Inspections}"
@@ -322,6 +311,7 @@
                                     <controls:StatusBadge
                                         Grid.Column="1"
                                         Status="{Binding Status}"
+                                        BackgroundColor="{Binding Status, Converter={StaticResource StatusToColorConverter}}"
                                         VerticalOptions="Center" />
 
                                 </Grid>
@@ -333,7 +323,7 @@
                                     FontSize="{StaticResource CaptionFontSize}"
                                     TextColor="{StaticResource Gray500}" />
 
-                                <!-- Priority and Date -->
+                                <!-- Priority and Relative Date -->
                                 <Grid
                                     Grid.Row="2"
                                     ColumnDefinitions="Auto,*"
@@ -353,7 +343,7 @@
                                                 Binding="{Binding Priority}"
                                                 Value="High">
                                                 <Setter Property="BackgroundColor"
-                                                    Value="{StaticResource PriorityHigh}" />
+                                                        Value="{StaticResource PriorityHigh}" />
                                             </DataTrigger>
 
                                             <DataTrigger
@@ -383,7 +373,7 @@
 
                                     <Label
                                         Grid.Column="1"
-                                        Text="{Binding ScheduledOn, StringFormat='Scheduled: {0:dd MMM yyyy}'}"
+                                        Text="{Binding ScheduledOn, Converter={StaticResource DateToRelativeTextConverter}, StringFormat='Scheduled: {0}'}"
                                         FontSize="{StaticResource CaptionFontSize}"
                                         TextColor="{StaticResource Gray500}"
                                         HorizontalTextAlignment="End"
@@ -402,15 +392,52 @@
 
         </ListView>
 
+        <!-- Empty State -->
+        <Grid
+            Grid.Row="3"
+            ZIndex="1"
+            InputTransparent="True"
+            IsVisible="{Binding HasInspections, Converter={StaticResource InverseBooleanConverter}}">
+
+            <VerticalStackLayout
+                HorizontalOptions="Center"
+                VerticalOptions="Center"
+                Spacing="{StaticResource SmallSpacing}">
+
+                <Label
+                    Text="No inspections found"
+                    FontSize="{StaticResource BodyFontSize}"
+                    FontFamily="{StaticResource SemiBoldFont}"
+                    HorizontalTextAlignment="Center" />
+
+                <Label
+                    Text="Try changing your search."
+                    FontSize="{StaticResource CaptionFontSize}"
+                    TextColor="{StaticResource Gray500}"
+                    HorizontalTextAlignment="Center" />
+
+            </VerticalStackLayout>
+
+            <Grid.Triggers>
+                <DataTrigger
+                    TargetType="Grid"
+                    Binding="{Binding IsBusy}"
+                    Value="True">
+                    <Setter Property="IsVisible" Value="False" />
+                </DataTrigger>
+            </Grid.Triggers>
+
+        </Grid>
+
         <!-- Loading Indicator -->
         <ActivityIndicator
-            Grid.Row="2"
+            Grid.Row="3"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"
             Color="{StaticResource Primary}"
             HorizontalOptions="Center"
             VerticalOptions="Center"
-            ZIndex="1" />
+            ZIndex="2" />
 
     </Grid>
 </ContentPage>
