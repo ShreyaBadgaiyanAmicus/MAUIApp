@@ -1,5 +1,6 @@
 ﻿
 using System.Text.RegularExpressions;
+using InspectorManagementApplication.Commands;
 
 namespace InspectorManagementApplication.ViewModels;
 
@@ -14,6 +15,15 @@ public class LoginViewModel : BaseViewModel
     private string _passwordError = string.Empty;
     private string _loginMessage = string.Empty;
 
+    public RelayCommand LoginCommand { get; }
+
+    public LoginViewModel()
+    {
+        LoginCommand = new RelayCommand(
+            Login,
+            () => IsLoginEnabled);
+    }
+
     public string Email
     {
         get => _email;
@@ -23,6 +33,7 @@ public class LoginViewModel : BaseViewModel
             {
                 ValidateEmail();
                 LoginMessage = string.Empty;
+                LoginCommand.NotifyCanExecuteChanged();
             }
         }
     }
@@ -36,6 +47,7 @@ public class LoginViewModel : BaseViewModel
             {
                 ValidatePassword();
                 LoginMessage = string.Empty;
+                LoginCommand.NotifyCanExecuteChanged();
             }
         }
     }

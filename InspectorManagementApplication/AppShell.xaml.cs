@@ -11,12 +11,15 @@ namespace InspectorManagementApplication
 
             Routing.RegisterRoute(
                 nameof(InspectorProfilePage),
-                typeof(InspectorProfilePage)
-            );
+                typeof(InspectorProfilePage));
 
             Routing.RegisterRoute(
-            nameof(InspectionListPage),
-            typeof(InspectionListPage));
+                nameof(InspectionListPage),
+                typeof(InspectionListPage));
+
+            Routing.RegisterRoute(
+                nameof(InspectionDetailPage),
+                typeof(InspectionDetailPage));
         }
     }
 }

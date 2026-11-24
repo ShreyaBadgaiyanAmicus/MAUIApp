@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="InspectorManagementApplication.Views.NewInspectionPage"
+    Title="New Inspection"
+    BackgroundColor="{StaticResource Gray100}"
+    SafeAreaEdges="All">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="{StaticResource PagePadding}"
+            Spacing="{StaticResource SectionSpacing}">
+
+            <!-- Page Heading -->
+            <VerticalStackLayout Spacing="{StaticResource ExtraSmallSpacing}">
+                <Label
+                    Text="Create Inspection"
+                    Style="{StaticResource PageTitleStyle}" />
+
+                <Label
+                    Text="Enter the details below to schedule a new inspection."
+                    FontSize="{StaticResource CaptionFontSize}"
+                    TextColor="{StaticResource Gray500}" />
+            </VerticalStackLayout>
+
+            <!-- Form Card -->
+            <Border Style="{StaticResource CardBorderStyle}">
+
+                <VerticalStackLayout Spacing="{StaticResource SmallSpacing}">
+
+                    <!-- Title -->
+                    <Label
+                        Text="Inspection Title"
+                        Style="{StaticResource FormLabelStyle}" />
+
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry
+                            Placeholder="Enter inspection title"
+                            Text="{Binding Title, Mode=TwoWay}" />
+                    </Border>
+
+                    <!-- Site Name -->
+                    <Label
+                        Text="Site Name"
+                        Style="{StaticResource FormLabelStyle}" />
+
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry
+                            Placeholder="Enter site name"
+                            Text="{Binding SiteName, Mode=TwoWay}" />
+                    </Border>
+
+                    <!-- Status -->
+                    <Label
+                        Text="Status"
+                        Style="{StaticResource FormLabelStyle}" />
+
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Picker
+                            Title="Select status"
+                            SelectedItem="{Binding Status, Mode=TwoWay}">
+
+                            <Picker.Items>
+                                <x:String>Pending</x:String>
+                                <x:String>In Progress</x:String>
+                                <x:String>Completed</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Border>
+
+                    <!-- Priority -->
+                    <Label
+                        Text="Priority"
+                        Style="{StaticResource FormLabelStyle}" />
+
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Picker
+                            Title="Select priority"
+                            SelectedItem="{Binding Priority, Mode=TwoWay}">
+
+                            <Picker.Items>
+                                <x:String>Low</x:String>
+                                <x:String>Medium</x:String>
+                                <x:String>High</x:String>
+                            </Picker.Items>
+                        </Picker>
+                    </Border>
+
+                    <!-- Scheduled Date -->
+                    <Label
+                        Text="Scheduled On"
+                        Style="{StaticResource FormLabelStyle}" />
+
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <DatePicker
+                            Date="{Binding ScheduledOn, Mode=TwoWay}"
+                            Format="dd MMM yyyy" />
+                    </Border>
+
+                    <!-- Inspector Name -->
+                    <Label
+                        Text="Inspector Name"
+                        Style="{StaticResource FormLabelStyle}" />
+
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Entry
+                            Placeholder="Enter inspector name"
+                            Text="{Binding InspectorName, Mode=TwoWay}" />
+                    </Border>
+
+                    <!-- Notes -->
+                    <Label
+                        Text="Notes"
+                        Style="{StaticResource FormLabelStyle}" />
+
+                    <Border Style="{StaticResource InputBorderStyle}">
+                        <Editor
+                            Placeholder="Enter inspection notes"
+                            Text="{Binding Notes, Mode=TwoWay}"
+                            AutoSize="TextChanges"
+                            HeightRequest="100" />
+                    </Border>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Save and Cancel -->
+            <Grid
+                ColumnDefinitions="*,*"
+                ColumnSpacing="{StaticResource MediumSpacing}">
+
+                <Button
+                    Grid.Column="0"
+                    Text="Save Inspection"
+                    Command="{Binding SaveCommand}"
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    FontSize="{StaticResource CaptionFontSize}"
+                    HeightRequest="48" />
+
+                <Button
+                    Grid.Column="1"
+                    Text="Cancel"
+                    Command="{Binding CancelCommand}"
+                    BackgroundColor="{StaticResource Secondary}"
+                    TextColor="{StaticResource Gray600}"
+                    FontAttributes="Bold"
+                    FontSize="{StaticResource CaptionFontSize}"
+                    CornerRadius="{StaticResource ButtonCornerRadius}"
+                    HeightRequest="48" />
+
+            </Grid>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

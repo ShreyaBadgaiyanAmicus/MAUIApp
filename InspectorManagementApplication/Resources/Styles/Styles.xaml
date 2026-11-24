@@ -11,29 +11,33 @@
     <!-- Indicator View -->
     <Style TargetType="IndicatorView">
         <Setter Property="IndicatorColor" Value="{StaticResource Gray200}" />
-        <Setter Property="SelectedIndicatorColor" Value="{StaticResource Gray950}" />
+        <Setter Property="SelectedIndicatorColor" Value="{StaticResource Primary}" />
     </Style>
 
-    <!-- Border -->
+    <!-- Default Border -->
     <Style TargetType="Border">
         <Setter Property="Stroke" Value="{StaticResource Gray200}" />
-        <Setter Property="StrokeShape" Value="Rectangle" />
         <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{StaticResource MediumCornerRadius}" />
+            </Setter.Value>
+        </Setter>
     </Style>
 
-    <!-- Box View -->
+    <!-- Default Box View -->
     <Style TargetType="BoxView">
-        <Setter Property="BackgroundColor" Value="{StaticResource Gray950}" />
+        <Setter Property="Color" Value="{StaticResource Gray200}" />
     </Style>
 
-    <!-- Button -->
+    <!-- Default Button -->
     <Style TargetType="Button">
         <Setter Property="TextColor" Value="{StaticResource White}" />
         <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
         <Setter Property="FontFamily" Value="{StaticResource SemiBoldFont}" />
         <Setter Property="FontSize" Value="{StaticResource ButtonFontSize}" />
         <Setter Property="BorderWidth" Value="0" />
-        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="CornerRadius" Value="{StaticResource ButtonCornerRadius}" />
         <Setter Property="Padding" Value="{StaticResource SmallPadding}" />
         <Setter Property="MinimumHeightRequest" Value="44" />
         <Setter Property="MinimumWidthRequest" Value="44" />
@@ -58,7 +62,7 @@
 
     <!-- Editor -->
     <Style TargetType="Editor">
-        <Setter Property="TextColor" Value="{StaticResource Black}" />
+        <Setter Property="TextColor" Value="{StaticResource Gray900}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="{StaticResource RegularFont}" />
         <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
@@ -69,7 +73,7 @@
 
     <!-- Entry -->
     <Style TargetType="Entry">
-        <Setter Property="TextColor" Value="{StaticResource Black}" />
+        <Setter Property="TextColor" Value="{StaticResource Gray900}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="{StaticResource RegularFont}" />
         <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
@@ -88,7 +92,7 @@
         <Setter Property="MinimumWidthRequest" Value="44" />
     </Style>
 
-    <!-- Implicit Label Style -->
+    <!-- Default Label -->
     <Style TargetType="Label">
         <Setter Property="TextColor" Value="{StaticResource Gray900}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
@@ -96,17 +100,18 @@
         <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
     </Style>
 
-    <!-- Existing Explicit Label Styles -->
+    <!-- Headline -->
     <Style x:Key="Headline" TargetType="Label">
-        <Setter Property="TextColor" Value="{StaticResource MidnightBlue}" />
+        <Setter Property="TextColor" Value="{StaticResource Gray900}" />
         <Setter Property="FontFamily" Value="{StaticResource SemiBoldFont}" />
         <Setter Property="FontSize" Value="{StaticResource PageTitleFontSize}" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />
     </Style>
 
+    <!-- SubHeadline -->
     <Style x:Key="SubHeadline" TargetType="Label">
-        <Setter Property="TextColor" Value="{StaticResource MidnightBlue}" />
+        <Setter Property="TextColor" Value="{StaticResource Gray900}" />
         <Setter Property="FontFamily" Value="{StaticResource SemiBoldFont}" />
         <Setter Property="FontSize" Value="{StaticResource SectionTitleFontSize}" />
         <Setter Property="HorizontalOptions" Value="Center" />
@@ -116,7 +121,7 @@
     <!-- Picker -->
     <Style TargetType="Picker">
         <Setter Property="TextColor" Value="{StaticResource Gray900}" />
-        <Setter Property="TitleColor" Value="{StaticResource Gray900}" />
+        <Setter Property="TitleColor" Value="{StaticResource Gray500}" />
         <Setter Property="BackgroundColor" Value="Transparent" />
         <Setter Property="FontFamily" Value="{StaticResource RegularFont}" />
         <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
@@ -132,7 +137,7 @@
     <!-- Radio Button -->
     <Style TargetType="RadioButton">
         <Setter Property="BackgroundColor" Value="Transparent" />
-        <Setter Property="TextColor" Value="{StaticResource Black}" />
+        <Setter Property="TextColor" Value="{StaticResource Gray900}" />
         <Setter Property="FontFamily" Value="{StaticResource RegularFont}" />
         <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
         <Setter Property="MinimumHeightRequest" Value="44" />
@@ -141,7 +146,7 @@
 
     <!-- Refresh View -->
     <Style TargetType="RefreshView">
-        <Setter Property="RefreshColor" Value="{StaticResource Gray900}" />
+        <Setter Property="RefreshColor" Value="{StaticResource Primary}" />
     </Style>
 
     <!-- Search Bar -->
@@ -175,17 +180,17 @@
         <Setter Property="FontSize" Value="{StaticResource BodyFontSize}" />
     </Style>
 
-    <!-- Page -->
+    <!-- Default Page -->
     <Style TargetType="Page" ApplyToDerivedTypes="True">
         <Setter Property="Padding" Value="0" />
-        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="BackgroundColor" Value="{StaticResource Gray100}" />
     </Style>
 
     <!-- Shell -->
     <Style TargetType="Shell" ApplyToDerivedTypes="True">
         <Setter Property="Shell.BackgroundColor" Value="{StaticResource White}" />
-        <Setter Property="Shell.ForegroundColor" Value="{StaticResource Black}" />
-        <Setter Property="Shell.TitleColor" Value="{StaticResource Black}" />
+        <Setter Property="Shell.ForegroundColor" Value="{StaticResource Gray900}" />
+        <Setter Property="Shell.TitleColor" Value="{StaticResource Gray900}" />
         <Setter Property="Shell.NavBarHasShadow" Value="False" />
         <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource White}" />
         <Setter Property="Shell.TabBarForegroundColor" Value="{StaticResource Primary}" />
@@ -204,7 +209,7 @@
     <Style TargetType="TabbedPage">
         <Setter Property="BarBackgroundColor" Value="{StaticResource White}" />
         <Setter Property="BarTextColor" Value="{StaticResource Primary}" />
-        <Setter Property="UnselectedTabColor" Value="{StaticResource Gray200}" />
+        <Setter Property="UnselectedTabColor" Value="{StaticResource Gray400}" />
         <Setter Property="SelectedTabColor" Value="{StaticResource Primary}" />
     </Style>
 
@@ -213,17 +218,57 @@
         <Setter Property="FontFamily" Value="{StaticResource SemiBoldFont}" />
         <Setter Property="FontSize" Value="{StaticResource PageTitleFontSize}" />
         <Setter Property="FontAttributes" Value="Bold" />
-        <Setter Property="TextColor" Value="{StaticResource Primary}" />
+        <Setter Property="TextColor" Value="{StaticResource Gray900}" />
     </Style>
 
-    <!-- Explicit Primary Button Style -->
+    <!-- Primary Button -->
     <Style x:Key="PrimaryButtonStyle" TargetType="Button">
         <Setter Property="FontFamily" Value="{StaticResource SemiBoldFont}" />
         <Setter Property="FontSize" Value="{StaticResource ButtonFontSize}" />
         <Setter Property="BackgroundColor" Value="{StaticResource Primary}" />
         <Setter Property="TextColor" Value="{StaticResource White}" />
-        <Setter Property="CornerRadius" Value="8" />
+        <Setter Property="CornerRadius" Value="{StaticResource ButtonCornerRadius}" />
         <Setter Property="Padding" Value="{StaticResource CardPadding}" />
+    </Style>
+
+    <!-- Card Border -->
+    <Style x:Key="CardBorderStyle" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource White}" />
+        <Setter Property="Stroke" Value="{StaticResource Gray200}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{StaticResource LargeCornerRadius}" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Padding" Value="{StaticResource CardPadding}" />
+    </Style>
+
+    <!-- Input Border -->
+    <Style x:Key="InputBorderStyle" TargetType="Border">
+        <Setter Property="BackgroundColor" Value="{StaticResource Gray100}" />
+        <Setter Property="Stroke" Value="{StaticResource Gray200}" />
+        <Setter Property="StrokeThickness" Value="1" />
+        <Setter Property="StrokeShape">
+            <Setter.Value>
+                <RoundRectangle CornerRadius="{StaticResource SmallCornerRadius}" />
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Padding" Value="{StaticResource CompactPadding}" />
+    </Style>
+
+    <!-- Section Heading -->
+    <Style x:Key="SectionHeadingStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource SemiBoldFont}" />
+        <Setter Property="FontSize" Value="{StaticResource SectionTitleFontSize}" />
+        <Setter Property="TextColor" Value="{StaticResource Gray900}" />
+    </Style>
+
+    <!-- Form Label -->
+    <Style x:Key="FormLabelStyle" TargetType="Label">
+        <Setter Property="FontFamily" Value="{StaticResource SemiBoldFont}" />
+        <Setter Property="FontSize" Value="{StaticResource CaptionFontSize}" />
+        <Setter Property="TextColor" Value="{StaticResource Gray600}" />
     </Style>
 
 </ResourceDictionary>

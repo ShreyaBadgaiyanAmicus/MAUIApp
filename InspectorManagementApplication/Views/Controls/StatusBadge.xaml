@@ -7,14 +7,12 @@
     <Border
         x:Name="BadgeBorder"
         Padding="{StaticResource SmallPadding}"
-        Stroke="{StaticResource White}"
         StrokeThickness="0"
         StrokeShape="RoundRectangle 8">
 
         <Label
             x:Name="StatusLabel"
             Text="Pending"
-            TextColor="{StaticResource White}"
             FontFamily="{StaticResource SemiBoldFont}"
             FontSize="{StaticResource CaptionFontSize}"
             HorizontalTextAlignment="Center" />

@@ -1,10 +1,51 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿
+using System.Windows.Input;
 
-namespace InspectorManagementApplication.Commands
+namespace InspectorManagementApplication.Commands;
+
+public class AsyncRelayCommand : ICommand
 {
-    class AsyncRelayCommand
+    private readonly Func<Task> _execute;
+    private readonly Func<bool>? _canExecute;
+    private bool _isExecuting;
+
+    public event EventHandler? CanExecuteChanged;
+
+    public AsyncRelayCommand(
+        Func<Task> execute,
+        Func<bool>? canExecute = null)
     {
+        _execute = execute;
+        _canExecute = canExecute;
+    }
+
+    public bool CanExecute(object? parameter)
+    {
+        return !_isExecuting &&
+               (_canExecute == null || _canExecute());
+    }
+
+    public async void Execute(object? parameter)
+    {
+        if (!CanExecute(parameter))
+            return;
+
+        try
+        {
+            _isExecuting = true;
+            NotifyCanExecuteChanged();
+
+            await _execute();
+        }
+        finally
+        {
+            _isExecuting = false;
+            NotifyCanExecuteChanged();
+        }
+    }
+
+    public void NotifyCanExecuteChanged()
+    {
+        CanExecuteChanged?.Invoke(this, EventArgs.Empty);
     }
 }

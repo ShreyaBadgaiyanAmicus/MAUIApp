@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    x:Class="InspectorManagementApplication.Views.InspectionDetailPage"
+    Title="Inspection Details"
+    BackgroundColor="#F4F6F9"
+    SafeAreaEdges="All">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="20"
+            Spacing="16">
+
+            <!-- Inspection Information -->
+            <Border
+                BackgroundColor="White"
+                Stroke="#E2E8F0"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 14"
+                Padding="18">
+
+                <VerticalStackLayout Spacing="14">
+
+                    <!-- Inspection Title -->
+                    <Label
+                        Text="{Binding Inspection.Title}"
+                        FontSize="21"
+                        FontAttributes="Bold"
+                        TextColor="#1E293B" />
+
+                    <Label
+                        Text="{Binding Inspection.SiteName}"
+                        FontSize="13"
+                        TextColor="#64748B" />
+
+                    <BoxView
+                        HeightRequest="1"
+                        Color="#E2E8F0" />
+
+                    <!-- Inspection ID -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label
+                            Text="INSPECTION ID"
+                            FontSize="11"
+                            FontAttributes="Bold"
+                            TextColor="#64748B" />
+
+                        <Label
+                            Text="{Binding Inspection.Id}"
+                            FontSize="14"
+                            TextColor="#1E293B" />
+                    </VerticalStackLayout>
+
+                    <!-- Status -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label
+                            Text="STATUS"
+                            FontSize="11"
+                            FontAttributes="Bold"
+                            TextColor="#64748B" />
+
+                        <Border
+                            HorizontalOptions="Start"
+                            Padding="10,5"
+                            BackgroundColor="#E8F1F8"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 7">
+
+                            <Border.Triggers>
+                                <DataTrigger
+                                    TargetType="Border"
+                                    Binding="{Binding Inspection.Status}"
+                                    Value="Pending">
+                                    <Setter Property="BackgroundColor" Value="#FFF3D9" />
+                                </DataTrigger>
+
+                                <DataTrigger
+                                    TargetType="Border"
+                                    Binding="{Binding Inspection.Status}"
+                                    Value="In Progress">
+                                    <Setter Property="BackgroundColor" Value="#E8F1F8" />
+                                </DataTrigger>
+
+                                <DataTrigger
+                                    TargetType="Border"
+                                    Binding="{Binding Inspection.Status}"
+                                    Value="Completed">
+                                    <Setter Property="BackgroundColor" Value="#E8F3EC" />
+                                </DataTrigger>
+                            </Border.Triggers>
+
+                            <Label
+                                Text="{Binding Inspection.Status}"
+                                FontSize="12"
+                                FontAttributes="Bold"
+                                TextColor="#356B91">
+
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding Inspection.Status}"
+                                        Value="Pending">
+                                        <Setter Property="TextColor" Value="#946B19" />
+                                    </DataTrigger>
+
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding Inspection.Status}"
+                                        Value="In Progress">
+                                        <Setter Property="TextColor" Value="#356B91" />
+                                    </DataTrigger>
+
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding Inspection.Status}"
+                                        Value="Completed">
+                                        <Setter Property="TextColor" Value="#47765B" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <!-- Priority -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label
+                            Text="PRIORITY"
+                            FontSize="11"
+                            FontAttributes="Bold"
+                            TextColor="#64748B" />
+
+                        <Border
+                            HorizontalOptions="Start"
+                            Padding="10,5"
+                            BackgroundColor="#FFF3D9"
+                            StrokeThickness="0"
+                            StrokeShape="RoundRectangle 7">
+
+                            <Border.Triggers>
+                                <DataTrigger
+                                    TargetType="Border"
+                                    Binding="{Binding Inspection.Priority}"
+                                    Value="High">
+                                    <Setter Property="BackgroundColor" Value="#FCE9E7" />
+                                </DataTrigger>
+
+                                <DataTrigger
+                                    TargetType="Border"
+                                    Binding="{Binding Inspection.Priority}"
+                                    Value="Medium">
+                                    <Setter Property="BackgroundColor" Value="#FFF3D9" />
+                                </DataTrigger>
+
+                                <DataTrigger
+                                    TargetType="Border"
+                                    Binding="{Binding Inspection.Priority}"
+                                    Value="Low">
+                                    <Setter Property="BackgroundColor" Value="#E8F1F8" />
+                                </DataTrigger>
+                            </Border.Triggers>
+
+                            <Label
+                                Text="{Binding Inspection.Priority}"
+                                FontSize="12"
+                                FontAttributes="Bold"
+                                TextColor="#946B19">
+
+                                <Label.Triggers>
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding Inspection.Priority}"
+                                        Value="High">
+                                        <Setter Property="TextColor" Value="#B84D45" />
+                                    </DataTrigger>
+
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding Inspection.Priority}"
+                                        Value="Medium">
+                                        <Setter Property="TextColor" Value="#946B19" />
+                                    </DataTrigger>
+
+                                    <DataTrigger
+                                        TargetType="Label"
+                                        Binding="{Binding Inspection.Priority}"
+                                        Value="Low">
+                                        <Setter Property="TextColor" Value="#356B91" />
+                                    </DataTrigger>
+                                </Label.Triggers>
+                            </Label>
+                        </Border>
+                    </VerticalStackLayout>
+
+                    <BoxView
+                        HeightRequest="1"
+                        Color="#E2E8F0" />
+
+                    <!-- Scheduled Date -->
+                    <VerticalStackLayout Spacing="4">
+                        <Label
+                            Text="SCHEDULED ON"
+                            FontSize="11"
+                            FontAttributes="Bold"
+                            TextColor="#64748B" />
+
+                        <Label
+                            Text="{Binding Inspection.ScheduledOn, StringFormat='{0:dd MMM yyyy}'}"
+                            FontSize="14"
+                            TextColor="#1E293B" />
+                    </VerticalStackLayout>
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Inspector Information -->
+            <Border
+                BackgroundColor="White"
+                Stroke="#E2E8F0"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 14"
+                Padding="18">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label
+                        Text="Inspector Information"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="#334155" />
+
+                    <Label
+                        Text="INSPECTOR NAME"
+                        FontSize="11"
+                        FontAttributes="Bold"
+                        TextColor="#64748B" />
+
+                    <Label
+                        Text="{Binding Inspection.InspectorName, TargetNullValue='Not assigned'}"
+                        FontSize="14"
+                        TextColor="#1E293B" />
+
+                </VerticalStackLayout>
+            </Border>
+
+            <!-- Notes -->
+            <Border
+                BackgroundColor="White"
+                Stroke="#E2E8F0"
+                StrokeThickness="1"
+                StrokeShape="RoundRectangle 14"
+                Padding="18">
+
+                <VerticalStackLayout Spacing="10">
+
+                    <Label
+                        Text="Inspection Notes"
+                        FontSize="16"
+                        FontAttributes="Bold"
+                        TextColor="#334155" />
+
+                    <Label
+                        Text="{Binding Inspection.Notes, TargetNullValue='No notes available.'}"
+                        FontSize="13"
+                        TextColor="#64748B"
+                        LineBreakMode="WordWrap" />
+
+                </VerticalStackLayout>
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

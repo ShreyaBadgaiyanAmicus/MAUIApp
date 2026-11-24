@@ -13,6 +13,7 @@ namespace InspectorManagementApplication
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
+            // Start outside the Shell tabs on the LoginPage.
             Window window = new Window(new LoginPage());
 
             // Application lifecycle events

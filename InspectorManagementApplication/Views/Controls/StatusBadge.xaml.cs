@@ -38,18 +38,44 @@ public partial class StatusBadge : ContentView
     {
         StatusLabel.Text = Status;
 
-        string resourceKey = Status switch
+        string backgroundKey;
+        string textKey;
+
+        switch (Status)
         {
-            "Pending" => "StatusPending",
-            "In Progress" => "StatusInProgress",
-            "Completed" => "StatusCompleted",
-            _ => "StatusPending"
-        };
+            case "Pending":
+                backgroundKey = "StatusPendingBackground";
+                textKey = "StatusPending";
+                break;
+
+            case "In Progress":
+                backgroundKey = "StatusInProgressBackground";
+                textKey = "StatusInProgress";
+                break;
+
+            case "Completed":
+                backgroundKey = "StatusCompletedBackground";
+                textKey = "StatusCompleted";
+                break;
+
+            default:
+                backgroundKey = "Gray200";
+                textKey = "Gray600";
+                break;
+        }
 
         if (Application.Current?.Resources.TryGetValue(
-            resourceKey, out var color) == true && color is Color badgeColor)
+            backgroundKey, out var background) == true &&
+            background is Color backgroundColor)
         {
-            BadgeBorder.BackgroundColor = badgeColor;
+            BadgeBorder.BackgroundColor = backgroundColor;
+        }
+
+        if (Application.Current?.Resources.TryGetValue(
+            textKey, out var text) == true &&
+            text is Color textColor)
+        {
+            StatusLabel.TextColor = textColor;
         }
     }
 }

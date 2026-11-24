@@ -2,11 +2,10 @@
 <ContentPage
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:controls="clr-namespace:InspectorManagementApplication.Views.Controls"
     x:Class="InspectorManagementApplication.Views.DashboardPage"
     Title="Dashboard"
     SafeAreaEdges="All"
-    BackgroundColor="{StaticResource PageBackground}">
+    BackgroundColor="{StaticResource Gray100}">
 
     <ContentPage.ToolbarItems>
         <ToolbarItem
@@ -16,456 +15,355 @@
             Clicked="OnProfileClicked" />
     </ContentPage.ToolbarItems>
 
-    <Grid RowDefinitions="Auto,*">
-
-        <!-- Dashboard Header -->
+    <ScrollView>
         <VerticalStackLayout
-            Grid.Row="0"
-            Padding="{StaticResource PagePadding}"
-            Spacing="{StaticResource SmallSpacing}">
+            Padding="{StaticResource SmallPadding}"
+            Spacing="{StaticResource LargeSpacing}">
 
-            <Label
-                Text="Dashboard"
-                Style="{StaticResource PageTitleStyle}" />
+            <!-- Dashboard Header -->
+            <VerticalStackLayout Spacing="{StaticResource ExtraSmallSpacing}">
+                <Label
+                    Text="Welcome back! Here's an overview of your inspections."
+                    FontSize="{StaticResource CaptionFontSize}"
+                    TextColor="{StaticResource Gray500}" />
+            </VerticalStackLayout>
 
-            <Label
-                Text="Welcome back! Here's your inspection overview."
-                FontSize="{StaticResource CaptionFontSize}"
-                TextColor="{StaticResource Gray500}" />
+            <!-- Summary -->
+            <VerticalStackLayout Spacing="{StaticResource MediumSpacing}">
+                <Label
+                    Text="Overview"
+                    Style="{StaticResource SectionHeadingStyle}" />
 
-        </VerticalStackLayout>
+                <Grid
+                    ColumnDefinitions="*,*"
+                    RowDefinitions="Auto,Auto"
+                    ColumnSpacing="{StaticResource MediumSpacing}"
+                    RowSpacing="{StaticResource MediumSpacing}">
 
-        <!-- Dashboard Content -->
-        <ScrollView Grid.Row="1">
-
-            <VerticalStackLayout
-                Padding="{StaticResource PagePadding}"
-                Spacing="{StaticResource LargeSpacing}">
-
-                <!-- Summary -->
-                <VerticalStackLayout Spacing="{StaticResource MediumSpacing}">
-
-                    <Label
-                        Text="Overview"
-                        FontSize="{StaticResource SectionTitleFontSize}"
-                        FontFamily="{StaticResource SemiBoldFont}" />
-
-                    <Grid
-                        ColumnDefinitions="*,*"
-                        RowDefinitions="Auto,Auto"
-                        ColumnSpacing="{StaticResource MediumSpacing}"
-                        RowSpacing="{StaticResource MediumSpacing}">
-
-                        <!-- Total -->
-                        <Border
-                            Grid.Row="0"
-                            Grid.Column="0"
-                            Padding="{StaticResource CardPadding}"
-                            BackgroundColor="{StaticResource White}"
-                            Stroke="{StaticResource Gray200}"
-                            StrokeThickness="1"
-                            StrokeShape="RoundRectangle 14">
-
-                            <VerticalStackLayout Spacing="{StaticResource SmallSpacing}">
-                                <Label
-                                    Text="Total Inspections"
-                                    FontSize="{StaticResource CaptionFontSize}"
-                                    TextColor="{StaticResource Gray500}" />
-
-                                <Label
-                                    Text="24"
-                                    FontSize="{StaticResource PageTitleFontSize}"
-                                    FontFamily="{StaticResource SemiBoldFont}"
-                                    TextColor="{StaticResource Primary}" />
-                            </VerticalStackLayout>
-                        </Border>
-
-                        <!-- Pending -->
-                        <Border
-                            Grid.Row="0"
-                            Grid.Column="1"
-                            Padding="{StaticResource CardPadding}"
-                            BackgroundColor="{StaticResource White}"
-                            Stroke="{StaticResource Gray200}"
-                            StrokeThickness="1"
-                            StrokeShape="RoundRectangle 14">
-
-                            <VerticalStackLayout Spacing="{StaticResource SmallSpacing}">
-                                <Label
-                                    Text="Pending"
-                                    FontSize="{StaticResource CaptionFontSize}"
-                                    TextColor="{StaticResource Gray500}" />
-
-                                <Label
-                                    Text="8"
-                                    FontSize="{StaticResource PageTitleFontSize}"
-                                    FontFamily="{StaticResource SemiBoldFont}"
-                                    TextColor="{StaticResource StatusPending}" />
-                            </VerticalStackLayout>
-                        </Border>
-
-                        <!-- In Progress -->
-                        <Border
-                            Grid.Row="1"
-                            Grid.Column="0"
-                            Padding="{StaticResource CardPadding}"
-                            BackgroundColor="{StaticResource White}"
-                            Stroke="{StaticResource Gray200}"
-                            StrokeThickness="1"
-                            StrokeShape="RoundRectangle 14">
-
-                            <VerticalStackLayout Spacing="{StaticResource SmallSpacing}">
-                                <Label
-                                    Text="In Progress"
-                                    FontSize="{StaticResource CaptionFontSize}"
-                                    TextColor="{StaticResource Gray500}" />
-
-                                <Label
-                                    Text="10"
-                                    FontSize="{StaticResource PageTitleFontSize}"
-                                    FontFamily="{StaticResource SemiBoldFont}"
-                                    TextColor="{StaticResource StatusInProgress}" />
-                            </VerticalStackLayout>
-                        </Border>
-
-                        <!-- Completed -->
-                        <Border
-                            Grid.Row="1"
-                            Grid.Column="1"
-                            Padding="{StaticResource CardPadding}"
-                            BackgroundColor="{StaticResource White}"
-                            Stroke="{StaticResource Gray200}"
-                            StrokeThickness="1"
-                            StrokeShape="RoundRectangle 14">
-
-                            <VerticalStackLayout Spacing="{StaticResource SmallSpacing}">
-                                <Label
-                                    Text="Completed"
-                                    FontSize="{StaticResource CaptionFontSize}"
-                                    TextColor="{StaticResource Gray500}" />
-
-                                <Label
-                                    Text="6"
-                                    FontSize="{StaticResource PageTitleFontSize}"
-                                    FontFamily="{StaticResource SemiBoldFont}"
-                                    TextColor="{StaticResource StatusCompleted}" />
-                            </VerticalStackLayout>
-                        </Border>
-
-                    </Grid>
-                </VerticalStackLayout>
-
-                <!-- Today's Inspections -->
-                <VerticalStackLayout Spacing="{StaticResource MediumSpacing}">
-
-                    <Grid ColumnDefinitions="*,Auto">
-
-                        <VerticalStackLayout
-                            Grid.Column="0"
-                            Spacing="{StaticResource SmallSpacing}"
-                            VerticalOptions="Center">
-
+                    <!-- Total -->
+                    <Border
+                        Grid.Row="0"
+                        Grid.Column="0"
+                        Style="{StaticResource CardBorderStyle}">
+                        <VerticalStackLayout Spacing="{StaticResource SmallSpacing}">
                             <Label
-                                Text="Today's Inspections"
-                                FontSize="{StaticResource SectionTitleFontSize}"
-                                FontFamily="{StaticResource SemiBoldFont}" />
-
-                            <Label
-                                Text="Your upcoming inspection activities"
+                                Text="Total Inspections"
                                 FontSize="{StaticResource CaptionFontSize}"
                                 TextColor="{StaticResource Gray500}" />
-
+                            <Label
+                                Text="24"
+                                FontSize="{StaticResource DashboardValueFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource Primary}" />
                         </VerticalStackLayout>
-
-                        <Button
-                            Grid.Column="1"
-                            Text="Show all"
-                            FontSize="{StaticResource ButtonFontSize}"
-                            Padding="{StaticResource SmallPadding}"
-                            Clicked="OnShowAllClicked"
-                            VerticalOptions="Center" />
-
-                    </Grid>
-
-                    <!-- Inspection 1 -->
-                    <Border
-                        Padding="{StaticResource CardPadding}"
-                        BackgroundColor="{StaticResource White}"
-                        Stroke="{StaticResource Gray200}"
-                        StrokeThickness="1"
-                        StrokeShape="RoundRectangle 14">
-
-                        <Grid
-                            RowDefinitions="Auto,Auto,Auto"
-                            RowSpacing="{StaticResource MediumSpacing}">
-
-                            <Grid
-                                Grid.Row="0"
-                                ColumnDefinitions="*,Auto"
-                                ColumnSpacing="{StaticResource SmallSpacing}">
-
-                                <Label
-                                    Grid.Column="0"
-                                    Text="Safety Equipment Inspection"
-                                    FontFamily="{StaticResource SemiBoldFont}"
-                                    FontSize="{StaticResource BodyFontSize}"
-                                    VerticalOptions="Center" />
-
-                                <Border
-                                    Grid.Column="1"
-                                    Padding="{StaticResource SmallPadding}"
-                                    BackgroundColor="{StaticResource PriorityHigh}"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 7"
-                                    VerticalOptions="Center">
-
-                                    <Label
-                                        Text="High"
-                                        TextColor="{StaticResource White}"
-                                        FontFamily="{StaticResource SemiBoldFont}"
-                                        FontSize="{StaticResource CaptionFontSize}" />
-                                </Border>
-
-                            </Grid>
-
-                            <Label
-                                Grid.Row="1"
-                                Text="Pune Industrial Site  |  10:00 AM"
-                                FontSize="{StaticResource CaptionFontSize}"
-                                TextColor="{StaticResource Gray500}" />
-
-                            <controls:StatusBadge
-                                Grid.Row="2"
-                                Status="Pending"
-                                HorizontalOptions="Start" />
-
-                        </Grid>
                     </Border>
 
-                    <!-- Inspection 2 -->
+                    <!-- Pending -->
                     <Border
-                        Padding="{StaticResource CardPadding}"
-                        BackgroundColor="{StaticResource White}"
-                        Stroke="{StaticResource Gray200}"
-                        StrokeThickness="1"
-                        StrokeShape="RoundRectangle 14">
-
-                        <Grid
-                            RowDefinitions="Auto,Auto,Auto"
-                            RowSpacing="{StaticResource MediumSpacing}">
-
-                            <Grid
-                                Grid.Row="0"
-                                ColumnDefinitions="*,Auto"
-                                ColumnSpacing="{StaticResource SmallSpacing}">
-
-                                <Label
-                                    Grid.Column="0"
-                                    Text="Building Maintenance Check"
-                                    FontFamily="{StaticResource SemiBoldFont}"
-                                    FontSize="{StaticResource BodyFontSize}"
-                                    VerticalOptions="Center" />
-
-                                <Border
-                                    Grid.Column="1"
-                                    Padding="{StaticResource SmallPadding}"
-                                    BackgroundColor="{StaticResource PriorityMedium}"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 7"
-                                    VerticalOptions="Center">
-
-                                    <Label
-                                        Text="Medium"
-                                        TextColor="{StaticResource White}"
-                                        FontFamily="{StaticResource SemiBoldFont}"
-                                        FontSize="{StaticResource CaptionFontSize}" />
-                                </Border>
-
-                            </Grid>
-
+                        Grid.Row="0"
+                        Grid.Column="1"
+                        Style="{StaticResource CardBorderStyle}">
+                        <VerticalStackLayout Spacing="{StaticResource SmallSpacing}">
                             <Label
-                                Grid.Row="1"
-                                Text="Mumbai Office  |  02:00 PM"
+                                Text="Pending"
                                 FontSize="{StaticResource CaptionFontSize}"
                                 TextColor="{StaticResource Gray500}" />
-
-                            <controls:StatusBadge
-                                Grid.Row="2"
-                                Status="In Progress"
-                                HorizontalOptions="Start" />
-
-                        </Grid>
+                            <Label
+                                Text="8"
+                                FontSize="{StaticResource DashboardValueFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource StatusPending}" />
+                        </VerticalStackLayout>
                     </Border>
 
-                    <!-- Inspection 3 -->
+                    <!-- In Progress -->
                     <Border
-                        Padding="{StaticResource CardPadding}"
-                        BackgroundColor="{StaticResource White}"
-                        Stroke="{StaticResource Gray200}"
-                        StrokeThickness="1"
-                        StrokeShape="RoundRectangle 14">
-
-                        <Grid
-                            RowDefinitions="Auto,Auto,Auto"
-                            RowSpacing="{StaticResource MediumSpacing}">
-
-                            <Grid
-                                Grid.Row="0"
-                                ColumnDefinitions="*,Auto"
-                                ColumnSpacing="{StaticResource SmallSpacing}">
-
-                                <Label
-                                    Grid.Column="0"
-                                    Text="Fire Safety Inspection"
-                                    FontFamily="{StaticResource SemiBoldFont}"
-                                    FontSize="{StaticResource BodyFontSize}"
-                                    VerticalOptions="Center" />
-
-                                <Border
-                                    Grid.Column="1"
-                                    Padding="{StaticResource SmallPadding}"
-                                    BackgroundColor="{StaticResource PriorityHigh}"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 7"
-                                    VerticalOptions="Center">
-
-                                    <Label
-                                        Text="High"
-                                        TextColor="{StaticResource White}"
-                                        FontFamily="{StaticResource SemiBoldFont}"
-                                        FontSize="{StaticResource CaptionFontSize}" />
-                                </Border>
-
-                            </Grid>
-
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Style="{StaticResource CardBorderStyle}">
+                        <VerticalStackLayout Spacing="{StaticResource SmallSpacing}">
                             <Label
-                                Grid.Row="1"
-                                Text="Chennai Warehouse  |  03:30 PM"
+                                Text="In Progress"
                                 FontSize="{StaticResource CaptionFontSize}"
                                 TextColor="{StaticResource Gray500}" />
-
-                            <controls:StatusBadge
-                                Grid.Row="2"
-                                Status="Completed"
-                                HorizontalOptions="Start" />
-
-                        </Grid>
+                            <Label
+                                Text="10"
+                                FontSize="{StaticResource DashboardValueFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource StatusInProgress}" />
+                        </VerticalStackLayout>
                     </Border>
 
-                    <!-- Inspection 4 -->
+                    <!-- Completed -->
                     <Border
-                        Padding="{StaticResource CardPadding}"
-                        BackgroundColor="{StaticResource White}"
-                        Stroke="{StaticResource Gray200}"
-                        StrokeThickness="1"
-                        StrokeShape="RoundRectangle 14">
-
-                        <Grid
-                            RowDefinitions="Auto,Auto,Auto"
-                            RowSpacing="{StaticResource MediumSpacing}">
-
-                            <Grid
-                                Grid.Row="0"
-                                ColumnDefinitions="*,Auto"
-                                ColumnSpacing="{StaticResource SmallSpacing}">
-
-                                <Label
-                                    Grid.Column="0"
-                                    Text="Electrical Systems Check"
-                                    FontFamily="{StaticResource SemiBoldFont}"
-                                    FontSize="{StaticResource BodyFontSize}"
-                                    VerticalOptions="Center" />
-
-                                <Border
-                                    Grid.Column="1"
-                                    Padding="{StaticResource SmallPadding}"
-                                    BackgroundColor="{StaticResource PriorityLow}"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 7"
-                                    VerticalOptions="Center">
-
-                                    <Label
-                                        Text="Low"
-                                        TextColor="{StaticResource White}"
-                                        FontFamily="{StaticResource SemiBoldFont}"
-                                        FontSize="{StaticResource CaptionFontSize}" />
-                                </Border>
-
-                            </Grid>
-
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Style="{StaticResource CardBorderStyle}">
+                        <VerticalStackLayout Spacing="{StaticResource SmallSpacing}">
                             <Label
-                                Grid.Row="1"
-                                Text="Bengaluru Office  |  04:30 PM"
+                                Text="Completed"
                                 FontSize="{StaticResource CaptionFontSize}"
                                 TextColor="{StaticResource Gray500}" />
-
-                            <controls:StatusBadge
-                                Grid.Row="2"
-                                Status="Pending"
-                                HorizontalOptions="Start" />
-
-                        </Grid>
+                            <Label
+                                Text="6"
+                                FontSize="{StaticResource DashboardValueFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource StatusCompleted}" />
+                        </VerticalStackLayout>
                     </Border>
 
-                    <!-- Inspection 5 -->
-                    <Border
-                        Padding="{StaticResource CardPadding}"
-                        BackgroundColor="{StaticResource White}"
-                        Stroke="{StaticResource Gray200}"
-                        StrokeThickness="1"
-                        StrokeShape="RoundRectangle 14">
+                </Grid>
+            </VerticalStackLayout>
 
-                        <Grid
-                            RowDefinitions="Auto,Auto,Auto"
-                            RowSpacing="{StaticResource MediumSpacing}">
+            <!-- Today's Inspections -->
+            <VerticalStackLayout Spacing="{StaticResource MediumSpacing}">
 
-                            <Grid
-                                Grid.Row="0"
-                                ColumnDefinitions="*,Auto"
-                                ColumnSpacing="{StaticResource SmallSpacing}">
+                <Grid
+                    ColumnDefinitions="*,Auto"
+                    ColumnSpacing="{StaticResource SmallSpacing}">
 
-                                <Label
-                                    Grid.Column="0"
-                                    Text="Quality Compliance Audit"
-                                    FontFamily="{StaticResource SemiBoldFont}"
-                                    FontSize="{StaticResource BodyFontSize}"
-                                    VerticalOptions="Center" />
+                    <VerticalStackLayout
+                        Grid.Column="0"
+                        Spacing="{StaticResource ExtraSmallSpacing}"
+                        VerticalOptions="Center">
 
-                                <Border
-                                    Grid.Column="1"
-                                    Padding="{StaticResource SmallPadding}"
-                                    BackgroundColor="{StaticResource PriorityMedium}"
-                                    StrokeThickness="0"
-                                    StrokeShape="RoundRectangle 7"
-                                    VerticalOptions="Center">
+                        <Label
+                            Text="Today's Inspections"
+                            Style="{StaticResource SectionHeadingStyle}" />
 
-                                    <Label
-                                        Text="Medium"
-                                        TextColor="{StaticResource White}"
-                                        FontFamily="{StaticResource SemiBoldFont}"
-                                        FontSize="{StaticResource CaptionFontSize}" />
-                                </Border>
+                        <Label
+                            Text="Your scheduled inspection activities"
+                            FontSize="{StaticResource CaptionFontSize}"
+                            TextColor="{StaticResource Gray500}" />
+                    </VerticalStackLayout>
 
-                            </Grid>
+                    <Button
+                        Grid.Column="1"
+                        Text="Show all"
+                        FontSize="{StaticResource CaptionFontSize}"
+                        TextColor="{StaticResource Primary}"
+                        BackgroundColor="Transparent"
+                        Padding="{StaticResource SmallPadding}"
+                        Clicked="OnShowAllClicked"
+                        VerticalOptions="Center" />
+                </Grid>
+
+                <!-- Inspection 1 -->
+                <Border Style="{StaticResource CardBorderStyle}">
+                    <VerticalStackLayout Spacing="{StaticResource SmallSpacing}">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label
+                                Text="Safety Equipment Inspection"
+                                Grid.Column="0"
+                                FontSize="{StaticResource BodyFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource Gray900}"
+                                VerticalOptions="Center" />
 
                             <Label
-                                Grid.Row="1"
-                                Text="Hyderabad Facility  |  05:30 PM"
+                                Grid.Column="1"
+                                Text="High"
+                                FontSize="{StaticResource SmallFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PriorityHigh}"
+                                BackgroundColor="{StaticResource PriorityHighBackground}"
+                                Padding="{StaticResource SmallPadding}"
+                                VerticalOptions="Center" />
+                        </Grid>
+
+                        <Label
+                            Text="Pune Industrial Site"
+                            FontSize="{StaticResource CaptionFontSize}"
+                            TextColor="{StaticResource Gray500}" />
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label
+                                Text="10:00 AM"
                                 FontSize="{StaticResource CaptionFontSize}"
                                 TextColor="{StaticResource Gray500}" />
-
-                            <controls:StatusBadge
-                                Grid.Row="2"
-                                Status="In Progress"
-                                HorizontalOptions="Start" />
-
+                            <Label
+                                Grid.Column="1"
+                                Text="Pending"
+                                FontSize="{StaticResource CaptionFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource StatusPending}" />
                         </Grid>
-                    </Border>
+                    </VerticalStackLayout>
+                </Border>
 
-                </VerticalStackLayout>
+                <!-- Inspection 2 -->
+                <Border Style="{StaticResource CardBorderStyle}">
+                    <VerticalStackLayout Spacing="{StaticResource SmallSpacing}">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label
+                                Text="Building Maintenance Check"
+                                Grid.Column="0"
+                                FontSize="{StaticResource BodyFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource Gray900}"
+                                VerticalOptions="Center" />
+
+                            <Label
+                                Grid.Column="1"
+                                Text="Medium"
+                                FontSize="{StaticResource SmallFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PriorityMedium}"
+                                BackgroundColor="{StaticResource PriorityMediumBackground}"
+                                Padding="{StaticResource SmallPadding}"
+                                VerticalOptions="Center" />
+                        </Grid>
+
+                        <Label
+                            Text="Mumbai Office"
+                            FontSize="{StaticResource CaptionFontSize}"
+                            TextColor="{StaticResource Gray500}" />
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label
+                                Text="02:00 PM"
+                                FontSize="{StaticResource CaptionFontSize}"
+                                TextColor="{StaticResource Gray500}" />
+                            <Label
+                                Grid.Column="1"
+                                Text="In Progress"
+                                FontSize="{StaticResource CaptionFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource StatusInProgress}" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Inspection 3 -->
+                <Border Style="{StaticResource CardBorderStyle}">
+                    <VerticalStackLayout Spacing="{StaticResource SmallSpacing}">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label
+                                Text="Fire Safety Inspection"
+                                Grid.Column="0"
+                                FontSize="{StaticResource BodyFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource Gray900}"
+                                VerticalOptions="Center" />
+
+                            <Label
+                                Grid.Column="1"
+                                Text="High"
+                                FontSize="{StaticResource SmallFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PriorityHigh}"
+                                BackgroundColor="{StaticResource PriorityHighBackground}"
+                                Padding="{StaticResource SmallPadding}"
+                                VerticalOptions="Center" />
+                        </Grid>
+
+                        <Label
+                            Text="Chennai Warehouse"
+                            FontSize="{StaticResource CaptionFontSize}"
+                            TextColor="{StaticResource Gray500}" />
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label
+                                Text="03:30 PM"
+                                FontSize="{StaticResource CaptionFontSize}"
+                                TextColor="{StaticResource Gray500}" />
+                            <Label
+                                Grid.Column="1"
+                                Text="Completed"
+                                FontSize="{StaticResource CaptionFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource StatusCompleted}" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Inspection 4 -->
+                <Border Style="{StaticResource CardBorderStyle}">
+                    <VerticalStackLayout Spacing="{StaticResource SmallSpacing}">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label
+                                Text="Electrical Systems Check"
+                                Grid.Column="0"
+                                FontSize="{StaticResource BodyFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource Gray900}"
+                                VerticalOptions="Center" />
+
+                            <Label
+                                Grid.Column="1"
+                                Text="Low"
+                                FontSize="{StaticResource SmallFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PriorityLow}"
+                                BackgroundColor="{StaticResource PriorityLowBackground}"
+                                Padding="{StaticResource SmallPadding}"
+                                VerticalOptions="Center" />
+                        </Grid>
+
+                        <Label
+                            Text="Bengaluru Office"
+                            FontSize="{StaticResource CaptionFontSize}"
+                            TextColor="{StaticResource Gray500}" />
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label
+                                Text="04:30 PM"
+                                FontSize="{StaticResource CaptionFontSize}"
+                                TextColor="{StaticResource Gray500}" />
+                            <Label
+                                Grid.Column="1"
+                                Text="Pending"
+                                FontSize="{StaticResource CaptionFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource StatusPending}" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
+
+                <!-- Inspection 5 -->
+                <Border Style="{StaticResource CardBorderStyle}">
+                    <VerticalStackLayout Spacing="{StaticResource SmallSpacing}">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label
+                                Text="Quality Compliance Audit"
+                                Grid.Column="0"
+                                FontSize="{StaticResource BodyFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource Gray900}"
+                                VerticalOptions="Center" />
+
+                            <Label
+                                Grid.Column="1"
+                                Text="Medium"
+                                FontSize="{StaticResource SmallFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource PriorityMedium}"
+                                BackgroundColor="{StaticResource PriorityMediumBackground}"
+                                Padding="{StaticResource SmallPadding}"
+                                VerticalOptions="Center" />
+                        </Grid>
+
+                        <Label
+                            Text="Hyderabad Facility"
+                            FontSize="{StaticResource CaptionFontSize}"
+                            TextColor="{StaticResource Gray500}" />
+
+                        <Grid ColumnDefinitions="*,Auto">
+                            <Label
+                                Text="05:30 PM"
+                                FontSize="{StaticResource CaptionFontSize}"
+                                TextColor="{StaticResource Gray500}" />
+                            <Label
+                                Grid.Column="1"
+                                Text="In Progress"
+                                FontSize="{StaticResource CaptionFontSize}"
+                                FontAttributes="Bold"
+                                TextColor="{StaticResource StatusInProgress}" />
+                        </Grid>
+                    </VerticalStackLayout>
+                </Border>
 
             </VerticalStackLayout>
-        </ScrollView>
-
-    </Grid>
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>

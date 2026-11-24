@@ -320,8 +320,6 @@ Achieved consistent styling and typography across the Dashboard, Profile, and In
 
 ## 1. Create Models, ViewModels and Views folders and an Inspection model (Id, Title, SiteName, Status, Priority, ScheduledOn, InspectorName, Notes). Write a BaseViewModel that implements INotifyPropertyChanged yourself. Do not use a toolkit or source generator in this assignment.
 
-## Task 1 – MVVM Foundation
-
 ### Project Structure
 Created separate folders to organize the application:
 - **Models:** Contains the Inspection model.
@@ -352,8 +350,6 @@ This provides a reusable foundation for the application's ViewModels.
 
 ## 2. Create InspectionListViewModel with an ObservableCollection of inspections and bind InspectionListPage to it. The code-behind may contain only InitializeComponent and the BindingContext assignment. Experiment: replace the ObservableCollection with a plain List and add an item at runtime. Document what happens and why.
 
-## Task 2 – InspectionListViewModel and Data Binding
-
 ### ViewModel Implementation
 Created `InspectionListViewModel`, inheriting from `BaseViewModel`.
 
@@ -382,8 +378,6 @@ However, when a new inspection is added at runtime, `ObservableCollection` autom
 
 ## 3. Add an IsBusy property. Load the list with a simulated 2-second delay and show an ActivityIndicator while loading. In the README, describe which responsibilities sit in the Model, the View and the ViewModel in your app.
 
-## Task 3 – Loading State and MVVM Responsibilities
-
 ### IsBusy and Asynchronous Loading
 - Added an `IsBusy` property to `InspectionListViewModel` to track the loading state.
 - Implemented `LoadInspectionsAsync()` to simulate data loading using `Task.Delay(2000)`.
@@ -410,8 +404,6 @@ This separation makes the application easier to maintain, test and extend.
 
 
 ## 4. Add a search Entry bound TwoWay to a SearchText property. The list must filter as the user types, with no search button. In the README, list at least six bindings in your app in a table (control, property, mode, direction) and explain why you chose OneWay or TwoWay for each.
-
-## Task 4 – Two-Way Data Binding and Live Search
 
 ### Search Implementation
 - Added a Search Entry to `InspectionListPage.xaml`.
@@ -453,8 +445,6 @@ Two-way binding allows the search input to update `SearchText` immediately. The 
 
 ## 5. Write three value converters: StatusToColorConverter, a date-to-relative-text converter (such as '3 days ago', no libraries), and an inverse-boolean converter used to show an empty-state message when the search finds nothing.
 
-## Task 5 – Value Converters
-
 Implemented three custom value converters in the `Converters` folder and registered them in `App.xaml` as application-level resources.
 
 1. **StatusToColorConverter:** Converts inspection status into a corresponding color: Pending (Orange), In Progress (Blue), and Completed (Green).
@@ -467,9 +457,6 @@ Converters separate presentation logic from the ViewModel and allow reusable val
 
 ## 6. Create LoginPage with Email and Password entries. Validate the email format and a password of at least 8 characters. Show the error message under each field, and keep the Login button disabled until both are valid. Check the credentials against a hardcoded user for now.
 
-
-
-## Task 6: Login Page with Validation
 
 Created a `LoginPage` using MVVM with email and password validation.
 
@@ -497,3 +484,88 @@ Created a `LoginPage` using MVVM with email and password validation.
 
 
 ## 7. Write your own RelayCommand with CanExecute and an AsyncRelayCommand. Use them for Login and for loading the list, so that a second tap while one is running does nothing. Document what happens if the user taps Login twice very quickly, with and without your protection.
+
+- Created a custom `RelayCommand` supporting `CanExecute` for synchronous actions.
+- Created an `AsyncRelayCommand` to execute asynchronous operations.
+- Used `RelayCommand` for Login and `AsyncRelayCommand` for loading inspections.
+- `AsyncRelayCommand` prevents multiple executions while an operation is running by disabling the button until it completes.
+
+**Experiment – Rapid repeated taps:**
+- Without execution protection, repeated taps can trigger the same operation multiple times.
+- With `AsyncRelayCommand`, the first tap starts loading and disables the button. Further taps are ignored until loading finishes.
+- The button becomes enabled again after the operation completes.
+
+
+## 8. Add pull-to-refresh to the list using a RefreshView bound to a command. Add one event-based handler (for example SelectionChanged) and note in a comment why that case needed an event instead of a command.
+
+- Added `RefreshView` to both CollectionView and ListView.
+- Bound `Command` to `LoadInspectionsCommand` and `IsRefreshing` to `IsBusy`.
+- Added a `SelectionChanged` event handler to CollectionView.
+- Used an event because `SelectionChangedEventArgs` provides the newly selected item through `CurrentSelection`.
+
+**Result:** Pulling down refreshes the inspection list, and selecting an item triggers the event handler.
+
+## 9. Set up AppShell with a TabBar (Dashboard, Inspections, Profile) and keep the login flow outside the tabs. Register a route for InspectionDetailPage and pass the inspection Id as a parameter. The detail page loads and shows the full inspection.
+
+
+- Created a Shell `TabBar` with Dashboard, Inspections, and Profile tabs.
+- Kept LoginPage outside the Shell tabs.
+- Registered `InspectionDetailPage` as a Shell route.
+- Created a shared `InspectionService` to retrieve inspections.
+- Passed the selected inspection's Id through Shell navigation.
+- Created `InspectionDetailViewModel` to retrieve the full inspection using that Id.
+
+**Result:** Selecting an inspection from either view opens its detail page.
+
+
+## 10. Open a 'New Inspection' page as a modal with Save and Cancel. If the user has typed something and presses Cancel, ask for confirmation before discarding the changes.
+
+
+- Created `NewInspectionPage` to add a new inspection.
+- Opened the page as a modal using `Navigation.PushModalAsync()`.
+- Added fields for title, site, status, priority, scheduled date, inspector name, and notes.
+- Used `NewInspectionViewModel` to handle form data and Save/Cancel commands.
+- On Save, created an `Inspection` object and added it to `InspectionService`.
+- On Cancel, checked whether any fields had been entered. If changes existed, displayed a confirmation alert before discarding them.
+- Closed the modal using `Navigation.PopModalAsync()`.
+
+**Result:** Users can add a new inspection through a modal form or cancel it with a confirmation prompt if they have entered data.
+
+
+## 11. In the README, add a table of routes (route, page, parameters). Explain why you used Shell routes instead of calling PushAsync directly, and when direct navigation would have been the better choice.
+
+### Route Table
+
+| Route | Page | Parameters |
+|---|---|---|
+| `DashboardPage` | DashboardPage | None |
+| `InspectionListPage` | InspectionListPage | None |
+| `ProfilePage` | ProfilePage | None |
+| `InspectorProfilePage` | InspectorProfilePage | None |
+| `InspectionDetailPage` | InspectionDetailPage | `inspectionId` – ID of the selected inspection |
+
+### Why Shell Routes?
+
+I used Shell navigation with `Routing.RegisterRoute()` and `Shell.Current.GoToAsync()` for navigating between pages.
+
+- Shell provides a centralized way to manage application navigation.
+- It supports URI-based navigation and passing parameters between pages.
+- It integrates with the TabBar, making navigation between Dashboard, Inspections, and Profile straightforward.
+- It keeps navigation logic separate from page creation.
+
+For example, when a user selects an inspection, the app navigates to its details page using:
+
+```csharp
+await Shell.Current.GoToAsync(
+    $"{nameof(InspectionDetailPage)}?inspectionId={inspection.Id}");
+```
+
+The `InspectionId` property receives the parameter through `QueryProperty`.
+
+### When Would Direct Navigation Be Better?
+
+Direct navigation using `Navigation.PushAsync()` would be a better choice for simple, local navigation flows that do not need Shell route management, such as opening a temporary page in a `NavigationPage` stack.
+
+For example, I used `Navigation.PushModalAsync()` for `NewInspectionPage` because it is a temporary form that should appear modally and close independently using `Navigation.PopModalAsync()`.
+
+**Conclusion:** Shell routes are suitable for the app's main navigation and detail pages, while direct navigation is useful for simple page stacks and modal workflows.
